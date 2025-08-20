@@ -91,7 +91,7 @@ For large sites, we recommend using either the background mode via WP-CLI (`wp w
 
 == Development ==
 
-For development instructions and advanced usage, please visit the [plugin repository](https://github.com/yourusername/worddown).
+For development instructions and advanced usage, please visit the [plugin repository](https://github.com/adamalexandersson/worddown).
 
 = Build Process =
 
