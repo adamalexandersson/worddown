@@ -1,0 +1,10 @@
+@mixin backdrop-blur($color, $fallback-color, $saturate: 100%, $blur: 20px, $brightness: 100%, $opacity: 100%) {
+    background: $fallback-color;
+    content: "";
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        -webkit-backdrop-filter: saturate($saturate) blur($blur) brightness($brightness) opacity($opacity);
+        backdrop-filter: saturate($saturate) blur($blur) brightness($brightness) opacity($opacity);
+        background: $color;
+    }
+}

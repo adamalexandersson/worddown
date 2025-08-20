@@ -1,0 +1,9 @@
+// Colors
+$color-primary: var(--wp-admin-color-primary, #2271b1);
+$color-secondary: var(--wp-admin-color-secondary, #2c3338);
+$color-primary-light: var(--wp-admin-color-primary-light, color-mix(in srgb, #2271b1 10%, transparent));
+$color-primary-dark: var(--wp-admin-color-primary-dark, color-mix(in srgb, #2271b1 20%, transparent));
+$color-primary-border: var(--wp-admin-color-primary-border, color-mix(in srgb, #2271b1 20%, transparent));
+$color-secondary-light: var(--wp-admin-color-secondary-light, color-mix(in srgb, #2c3338 10%, transparent));
+$color-secondary-dark: var(--wp-admin-color-secondary-dark, color-mix(in srgb, #2c3338 20%, transparent));
+$color-secondary-border: var(--wp-admin-color-secondary-border, color-mix(in srgb, #2c3338 20%, transparent));

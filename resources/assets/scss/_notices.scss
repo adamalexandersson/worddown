@@ -1,0 +1,218 @@
+.worddown-admin-page {
+	.notice,
+	#lost-connection-notice {
+		position: relative;
+		box-sizing: border-box;
+		min-height: 48px;
+        width: 100%;
+        max-width: 64rem;
+		margin: {
+			top: 0 !important;
+			right: 0 !important;
+			bottom: 16px !important;
+			left: 0 !important;
+		}
+		padding: {
+			top: 13px !important;
+			right: 16px;
+			bottom: 12px !important;
+			left: 50px !important;
+		}
+		background-color: #e7eff9;
+		border: {
+			width: 1px;
+			style: solid;
+			color: #9dbaee;
+		}
+		border-radius: 8px;
+		box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+		color: #374151;
+
+		&.update-nag {
+			display: block;
+			position: relative;
+			margin: {
+				top: 30px !important;
+				right: 0 !important;
+				bottom: 30px !important;
+				left: 0 !important;
+			}
+		}
+
+		.button {
+			height: auto;
+			margin: {
+				left: 8px;
+			}
+			padding: 0;
+			border: none;
+			// @extend .p5;
+		}
+
+		> div {
+			margin: {
+				top: 0;
+				bottom: 0;
+			}
+		}
+
+		p {
+			flex: 1 0 auto;
+			max-width: 100%;
+			line-height: 18px;
+			margin: 0;
+			padding: 0;
+
+			&.help {
+				margin: {
+					top: 0;
+				}
+				padding: {
+					top: 0;
+				}
+				// @extend .p7;
+				color: rgba(55, 65, 81, 0.7);
+			}
+		}
+
+		// Dismiss button
+		.notice-dismiss {
+			position: absolute;
+			top: 4px;
+			right: 8px;
+			padding: 9px;
+			border: none;
+
+			&:before {
+				content: "";
+				display: block;
+				position: relative;
+				z-index: 600;
+				width: 20px;
+				height: 20px;
+				background-color: #6b7280;
+				border: none;
+				border-radius: 0;
+				-webkit-mask-size: contain;
+				mask-size: contain;
+				-webkit-mask-repeat: no-repeat;
+				mask-repeat: no-repeat;
+				-webkit-mask-position: center;
+				mask-position: center;
+				-webkit-mask-image: url("@icons/close.svg");
+				mask-image: url("@icons/close.svg");
+			}
+
+			&:hover::before {
+				background-color: #374151;
+			}
+		}
+
+		// Icon base styling
+
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 15px;
+			left: 18px;
+			z-index: 600;
+			width: 16px;
+			height: 16px;
+			margin: {
+				right: 8px;
+			}
+			background-color: #fff;
+			border: none;
+			border-radius: 0;
+			-webkit-mask-size: contain;
+			mask-size: contain;
+			-webkit-mask-repeat: no-repeat;
+			mask-repeat: no-repeat;
+			-webkit-mask-position: center;
+			mask-position: center;
+			-webkit-mask-image: url("@icons/info.svg");
+			mask-image: url("@icons/info.svg");
+		}
+
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 9px;
+			left: 12px;
+			z-index: 500;
+			width: 28px;
+			height: 28px;
+			background-color: #2563eb;
+			border-radius: 6px;
+			box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+		}
+
+		.local-restore {
+			align-items: center;
+			margin: {
+				top: -6px;
+				bottom: 0;
+			}
+		}
+	}
+
+	// Persisted notices should be hidden by default as they will be shown by JS if required.
+	.notice[data-persisted="true"] {
+		display: none;
+	}
+
+	.notice.is-dismissible {
+		padding: {
+			right: 56px;
+		}
+	}
+
+	// Success notice
+	.notice.notice-success {
+		background-color: #edf7ef;
+		border-color: #b6deb9;
+
+		&:before {
+			-webkit-mask-image: url("@icons/check-circle.svg");
+			mask-image: url("@icons/check-circle.svg");
+		}
+
+		&:after {
+			background-color: #22c55e;
+		}
+	}
+
+	// Error notice
+	.notice.notice-error,
+	#lost-connection-notice {
+		background-color: #f7eeeb;
+		border-color: #f1b6b3;
+
+		&:before {
+			-webkit-mask-image: url("@icons/warning.svg");
+			mask-image: url("@icons/warning.svg");
+		}
+
+		&:after {
+			background-color: #ef4444;
+		}
+	}
+	
+	.notice.notice-warning {
+		&:before {
+			-webkit-mask-image: url("@icons/warning-triangle.svg");
+			mask-image: url("@icons/warning-triangle.svg");
+			background: #f56e28;
+		}
+
+		&:after {
+			content: none;
+		}
+		
+		background: linear-gradient(0deg, rgba(247, 144, 9, 0.08), rgba(247, 144, 9, 0.08)), #FFFFFF;
+		border: 1px solid rgba(247, 144, 9, 0.32);
+		color: #374151;
+	}
+}

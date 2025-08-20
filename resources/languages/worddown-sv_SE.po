@@ -1,0 +1,496 @@
+# Copyright (C) 2025 Adam Alexandersson
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Worddown 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/worddown\n"
+"POT-Creation-Date: 2025-08-20T13:16:57+00:00\n"
+"PO-Revision-Date: 2025-08-20 15:17+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Domain: worddown\n"
+
+#. Plugin Name of the plugin
+#: worddown.php app/Application/App.php:70 app/Application/App.php:71
+msgid "Worddown"
+msgstr "Worddown"
+
+#. Description of the plugin
+#: worddown.php
+msgid ""
+"WordPress plugin that exports pages or posts to a markdown files for AI "
+"chatbots"
+msgstr ""
+"WordPress-plugin som exporterar sidor eller inlägg till markdown-filer för "
+"AI-chatbots"
+
+#. Author of the plugin
+#: worddown.php
+msgid "Adam Alexandersson"
+msgstr "Adam Alexandersson"
+
+#: app/Admin/Dashboard.php:40 app/Admin/Dashboard.php:41
+#: app/Admin/Header.php:40
+msgid "Dashboard"
+msgstr "Instrumentpanel"
+
+#: app/Admin/Header.php:46 app/Admin/Settings.php:75 app/Admin/Settings.php:76
+msgid "Settings"
+msgstr "Inställningar"
+
+#: app/Admin/Settings.php:60 config/settings.php:85
+msgid "Weekly"
+msgstr "Veckovis"
+
+#. translators: %s is the adapter label
+#: app/Admin/Settings.php:357
+#, php-format
+msgid "Include %s content in export"
+msgstr "Inkludera %s modulers innehåll i exporten"
+
+#: app/Export/Api.php:345
+msgid "Export cancelled"
+msgstr "Exporten avbröts"
+
+#: app/Export/Api.php:345
+msgid "Export completed"
+msgstr "Exporten är klar"
+
+#: app/Export/Api.php:358
+msgid "No export currently running"
+msgstr "Ingen export körs för närvarande"
+
+#: app/Export/Api.php:377
+msgid "Export cancelled successfully"
+msgstr "Exporten avbröts"
+
+#: app/Export/Api.php:377
+msgid "No export to cancel"
+msgstr "Ingen export att avbryta"
+
+#. translators: %d is the total number of posts
+#: app/Export/Export.php:199
+#, php-format
+msgid "Background export started for %d posts"
+msgstr "Bakgrundsexport har startat för %d inlägg"
+
+#: app/Export/Export.php:249
+msgid "Starting export..."
+msgstr "Startar export..."
+
+#. translators: %1$d is the current chunk number, %2$d is the total number of chunks, %3$d is the number of posts in the current chunk
+#: app/Export/Export.php:284
+#, php-format
+msgid "Processing chunk %1$d of %2$d (%3$d posts)"
+msgstr "Bearbetar segment %1$d av %2$d (%3$d inlägg)"
+
+#: app/Export/Export.php:336
+msgid "Export completed successfully"
+msgstr "Exporten har slutförts"
+
+#: app/Export/Export.php:426
+msgid "Export cancelled by user"
+msgstr "Exporten avbröts av användaren"
+
+#: config/settings.php:7
+msgid "General"
+msgstr "Allmänt"
+
+#: config/settings.php:11
+msgid "Content to Export"
+msgstr "Innehåll att exportera"
+
+#: config/settings.php:16
+msgid "Post Types"
+msgstr "Inläggstyper"
+
+#: config/settings.php:17
+msgid "Select post types to export"
+msgstr "Välj inläggstyper att exportera"
+
+#: config/settings.php:23
+msgid "Drafts"
+msgstr "Utkast"
+
+#: config/settings.php:24
+msgid "Include draft posts in export"
+msgstr "Inkludera utkast i exporten"
+
+#: config/settings.php:25
+msgid "This will include draft posts in the export."
+msgstr "Detta kommer att inkludera utkast till inlägg i exporten."
+
+#: config/settings.php:31
+msgid "Private"
+msgstr "Privat"
+
+#: config/settings.php:32
+msgid "Include private posts in export"
+msgstr "Inkludera privata inlägg i exporten"
+
+#: config/settings.php:33
+msgid "This will include private posts in the export."
+msgstr "Detta kommer att inkludera privata inlägg i exporten."
+
+#: config/settings.php:39
+msgid "Chunk Size"
+msgstr "Storlek på exportsegment"
+
+#: config/settings.php:40
+msgid ""
+"Number of posts to process in each batch during background exports. Lower "
+"values use less memory but take longer."
+msgstr ""
+"Antal poster som behandlas i varje omgång vid bakgrundsexport. Lägre värden "
+"använder mindre minne men tar längre tid."
+
+#: config/settings.php:49
+msgid "Adapters (Page Builders, etc.)"
+msgstr "Adaptrar (sidbyggare, etc.)"
+
+#: config/settings.php:54
+msgid "Adapters"
+msgstr "Adaptrar"
+
+#: config/settings.php:55
+msgid "Enable or disable adapters for export."
+msgstr "Aktivera eller inaktivera adaptrar för export."
+
+#: config/settings.php:63
+msgid "Schedule"
+msgstr "Schema"
+
+#: config/settings.php:67
+msgid "WP Cron"
+msgstr "WP Cron"
+
+#: config/settings.php:72
+msgid "Automatic Export"
+msgstr "Automatisk export"
+
+#: config/settings.php:73
+msgid "Run export automatically"
+msgstr "Kör export automatiskt"
+
+#: config/settings.php:74
+msgid "This will run the export automatically."
+msgstr "Detta kommer att köra exporten automatiskt."
+
+#: config/settings.php:80
+msgid "Export Frequency"
+msgstr "Exportfrekvens"
+
+#: config/settings.php:81
+msgid "How often to run the export"
+msgstr "Hur ofta exporten ska köras"
+
+#: config/settings.php:83
+msgid "Hourly"
+msgstr "Varje timme"
+
+#: config/settings.php:84
+msgid "Daily"
+msgstr "Dagligen"
+
+#: config/settings.php:92
+msgid "Export Time"
+msgstr "Exporttid"
+
+#: config/settings.php:93
+msgid "Time of day to run the export (server time)"
+msgstr "Tid på dagen för att köra exporten (servertid)"
+
+#: config/settings.php:99
+msgid "WP-CLI & Server Cron"
+msgstr "WP-CLI & Server Cron"
+
+#: config/settings.php:100
+msgid ""
+"You can automate exports using WP-CLI and your server's crontab for better "
+"reliability and performance"
+msgstr ""
+"Du kan automatisera exporter med WP-CLI och din servers crontab för bättre "
+"tillförlitlighet och prestanda"
+
+#: config/settings.php:109
+msgid ""
+"You can automate exports using WP-CLI and your server's crontab for better "
+"reliability and performance. Use the --background flag for large exports to "
+"prevent timeouts."
+msgstr ""
+"Du kan automatisera exporter med hjälp av WP-CLI och din servers crontab för "
+"bättre tillförlitlighet och prestanda. Använd flaggan --background för stora "
+"exporter för att förhindra timeout."
+
+#: config/settings.php:117
+msgid "API"
+msgstr "API"
+
+#: config/settings.php:121
+msgid "API Authentication"
+msgstr "API-autentisering"
+
+#: config/settings.php:126
+msgid "API Key"
+msgstr "API-nyckel"
+
+#: config/settings.php:127
+msgid ""
+"API key for accessing the Worddown API. Leave empty to only allow local "
+"access."
+msgstr ""
+"API-nyckel för att komma åt Worddown API:et. Lämna tomt för att endast "
+"tillåta lokal åtkomst."
+
+#: config/settings.php:133
+msgid "Available Endpoints"
+msgstr "Tillgängliga endpoints"
+
+#: config/settings.php:139
+msgid "List all exported markdown files with metadata"
+msgstr "Lista alla exporterade markdown-filer med metadata"
+
+#: config/settings.php:145
+msgid "Get markdown content of a specific file by post ID"
+msgstr "Hämta markdown-innehåll för en specifik fil via inläggs-ID"
+
+#: config/settings.php:151
+msgid "Trigger a new export operation. Use background=true for large exports"
+msgstr ""
+"Starta en ny exportoperation. Använd background=true för stora exporter"
+
+#: config/settings.php:156
+msgid "Example Usage (cURL)"
+msgstr "Exempel på användning (cURL)"
+
+#: config/strings.php:7
+msgid "Exported Files"
+msgstr "Exporterade filer"
+
+#: config/strings.php:8
+msgid "Editing:"
+msgstr "Redigerar:"
+
+#: config/strings.php:9
+msgid "Failed to load dashboard data."
+msgstr "Det gick inte att läsa in instrumentpanelsdata."
+
+#: config/strings.php:10
+msgid "Export completed successfully!"
+msgstr "Export slutförd framgångsrikt!"
+
+#: config/strings.php:11
+msgid "Export failed."
+msgstr "Exporten misslyckades."
+
+#: config/strings.php:12
+msgid "Export failed to start."
+msgstr "Exporten misslyckades med att starta."
+
+#: config/strings.php:13
+msgid "Never"
+msgstr "Aldrig"
+
+#: config/strings.php:14
+msgid "Last Export"
+msgstr "Senaste Export"
+
+#: config/strings.php:15
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: config/strings.php:16
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: config/strings.php:17
+msgid "Auto Export"
+msgstr "Automatisk Export"
+
+#: config/strings.php:18
+msgid "Exported files by Post Type"
+msgstr "Exporterade filer efter inläggstyp"
+
+#: config/strings.php:19
+msgid "Exported files"
+msgstr "Exporterade filer"
+
+#: config/strings.php:20
+msgid "Export Now"
+msgstr "Exportera nu"
+
+#: config/strings.php:21
+msgid "files exported"
+msgstr "exporterade filer"
+
+#: config/strings.php:22
+msgid "Next Scheduled Export:"
+msgstr "Nästa schemalagda export:"
+
+#: config/strings.php:23
+msgid "Exporting..."
+msgstr "Exporterar..."
+
+#: config/strings.php:24
+msgid "Start a manual export of all content based on your current settings."
+msgstr ""
+"Starta en manuell export av allt innehåll baserat på dina inställningar."
+
+#: config/strings.php:25
+msgid "Export Information"
+msgstr "Exportinformation"
+
+#: config/strings.php:26
+msgid "Export Directory:"
+msgstr "Exportkatalog:"
+
+#: config/strings.php:27
+msgid "Directory exists and is writable"
+msgstr "Katalogen finns och är skrivbar"
+
+#: config/strings.php:28
+msgid "Directory does not exist or is not writable"
+msgstr "Katalogen finns inte eller är inte skrivbar"
+
+#: config/strings.php:29
+msgid "File Format:"
+msgstr "Filformat:"
+
+#: config/strings.php:30
+msgid "Saving..."
+msgstr "Sparar…"
+
+#: config/strings.php:31
+msgid "Save Settings"
+msgstr "Spara inställningar"
+
+#: config/strings.php:32
+msgid "Settings saved!"
+msgstr "Inställningarna sparade!"
+
+#: config/strings.php:33
+msgid "Failed to save settings."
+msgstr "Det gick inte att spara inställningarna."
+
+#: config/strings.php:34
+msgid "Export started successfully!"
+msgstr "Exporten har startat!"
+
+#: config/strings.php:35
+msgid "Export was cancelled."
+msgstr "Exporten avbröts."
+
+#: config/strings.php:36
+msgid "Export cancelled successfully."
+msgstr "Exporten avbröts."
+
+#: config/strings.php:37
+msgid "Failed to cancel export."
+msgstr "Det gick inte att avbryta exporten."
+
+#: config/strings.php:38
+msgid "Cancel Export"
+msgstr "Avbryt export"
+
+#: config/strings.php:39
+msgid "Export in progress..."
+msgstr "Export pågår..."
+
+#: config/strings.php:40
+msgid "Total Posts"
+msgstr "Totalt antal inlägg"
+
+#: config/strings.php:41
+msgid "Exported"
+msgstr "Exporterad"
+
+#: config/strings.php:42
+msgid "Failed"
+msgstr "Misslyckades"
+
+#: config/strings.php:43
+msgid "Estimated completion:"
+msgstr "Beräknad färdigställandetid:"
+
+#: config/strings.php:44
+msgid "Export is running in the background. You can safely close this page."
+msgstr "Exporten körs i bakgrunden. Du kan säkert stänga den här sidan."
+
+#: config/strings.php:45
+msgid ""
+"Start a background export of all content based on your current settings."
+msgstr ""
+"Starta en bakgrundsexport av allt innehåll baserat på dina nuvarande "
+"inställningar."
+
+#: config/strings.php:46
+msgid ""
+"Supported adapters will be shown here automatically when they are available."
+msgstr "Adaptrar som stöds visas här automatiskt när de är tillgängliga."
+
+#~ msgid "Twice Daily"
+#~ msgstr "Två gånger dagligen"
+
+#~ msgid "Page builder injectors"
+#~ msgstr "Sidbyggare"
+
+#~ msgid "Page Builder Injectors"
+#~ msgstr "Sidbyggare"
+
+#~ msgid "General Settings"
+#~ msgstr "Allmänna inställningar"
+
+#~ msgid "Modularity"
+#~ msgstr "Modularity"
+
+#~ msgid "This will include the content of Modularity modules in the export."
+#~ msgstr ""
+#~ "Detta kommer att inkludera innehållet i Modularity-modulerna i exporten."
+
+#, php-format
+#~ msgid "%d files were exported."
+#~ msgstr "%d filer exporterades."
+
+#~ msgid "Last Export:"
+#~ msgstr "Senaste export:"
+
+#~ msgid "Directory does not exist"
+#~ msgstr "Katalogen finns inte"
+
+#~ msgid "Directory is not writable"
+#~ msgstr "Katalogen är inte skrivbar"
+
+#~ msgid "Content Statistics"
+#~ msgstr "Innehållsstatistik"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivera"
+
+#~ msgid "Frequency"
+#~ msgstr "Frekvens"
+
+#~ msgid "Post Status"
+#~ msgstr "Inläggsstatus"
+
+#~ msgid "Modularity Content"
+#~ msgstr "Modularity-innehåll"
+
+#~ msgid ""
+#~ "When enabled, Modularity modules will be included in the markdown export."
+#~ msgstr ""
+#~ "När aktiverat kommer Modularity-moduler att inkluderas i markdown-"
+#~ "exporten."
+
+#~ msgid "API Settings"
+#~ msgstr "API-inställningar"
+
+#~ msgid "Generate New Key"
+#~ msgstr "Generera ny nyckel"
+
+#~ msgid "Export WordPress content to markdown files for AI consumption"
+#~ msgstr "Exportera WordPress-innehåll till markdown-filer för AI-konsumtion"

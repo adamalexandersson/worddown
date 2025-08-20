@@ -1,0 +1,95 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.worddown-plugin-header {
+    background: #fff;
+    border-bottom: 1px solid #e1e5e9;
+    margin-bottom: 0;
+    margin-left: -20px;
+
+    .worddown-header-bar {
+        background: v.$color-primary;
+        display: flex;
+        padding: 20px 30px;
+        gap: 25px;
+        align-items: center;
+        position: relative;
+    }
+
+    .worddown-header-logo-bar {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .worddown-header-logo {
+        width: 35px;
+        height: 35px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .worddown-header-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+        color: #fff;
+    }
+
+    .worddown-header-submenu {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        height: 40px;
+    }
+
+    .worddown-header-submenu-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 10px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        &.active, &:hover {
+            background: v.$color-primary-dark;
+            color: #fff;
+            
+            svg {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.worddown-header-heading-bar {
+    position: sticky;
+    top: 32px;
+    z-index: 1000;
+    border-bottom: 0.5px solid #f4f4f4;
+    margin-left: -20px;
+    padding: 10px 30px;
+
+    @include m.backdrop-blur(#ffffffb2, #fff, 300%, 20px, 100%, 100%);
+
+    h1 {
+        font-size: 23px;
+        font-weight: 700;
+    }
+}
