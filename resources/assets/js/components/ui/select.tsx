@@ -29,6 +29,37 @@ function Select({ value, onValueChange, options, children, ...props }: {
   const [triggerRef, setTriggerRef] = React.useState<HTMLButtonElement | null>(null);
   const [highlightedIndex, setHighlightedIndex] = React.useState<number>(-1);
   const itemsRef = React.useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Handle click outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node) &&
+        triggerRef !== event.target
+      ) {
+        setOpen(false);
+      }
+    };
+
+    // Handle escape key
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [open, triggerRef]);
 
   React.useEffect(() => {
     setSelected(value);
@@ -53,7 +84,7 @@ function Select({ value, onValueChange, options, children, ...props }: {
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <div className="relative" {...props}>{children}</div>
+      <div ref={containerRef} className="relative" {...props}>{children}</div>
     </SelectContext.Provider>
   );
 }
@@ -146,7 +177,7 @@ function SelectContent({ children, className }: { children: React.ReactNode; cla
   return (
     <div
       className={cn(
-        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-[300px] min-w-[8rem] origin-top overflow-x-hidden overflow-y-auto rounded-md border shadow-md p-1 mt-1",
+        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 absolute z-50 max-h-[300px] min-w-[8rem] w-full origin-top overflow-x-hidden overflow-y-auto rounded-md border shadow-md p-1 mt-1",
         className
       )}
       role="listbox"
