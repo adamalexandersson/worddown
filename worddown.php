@@ -43,6 +43,5 @@ add_action('init', function() {
     wp_set_script_translations('worddown', 'worddown');
 });
 
-
 // Boot the plugin
 App::boot(); 
