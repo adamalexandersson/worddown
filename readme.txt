@@ -86,6 +86,10 @@ For large sites, we recommend using either the background mode via WP-CLI (`wp w
 
 == Changelog ==
 
+= 1.1.0
+* Implement atomic export using pending directory
+* General improvements
+
 = 1.0.0 =
 * Initial release
 

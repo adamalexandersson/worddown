@@ -203,5 +203,9 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.1.0
+- Implement atomic export using pending directory
+- General improvements
+
 ### 1.0.0
 - Initial release
