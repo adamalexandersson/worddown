@@ -4,6 +4,7 @@ namespace Worddown\Export;
 
 use Worddown\Admin\Settings;
 use Worddown\Export\Adapters;
+use Worddown\Utilities\ExportDirectory;
 use Worddown\Utilities\HtmlProcessor;
 use Worddown\Utilities\MarkdownConverter;
 use Symfony\Component\Yaml\Yaml;
@@ -38,6 +39,9 @@ class Export
     /** @var HtmlProcessor */
     private HtmlProcessor $htmlProcessor;
 
+    /** @var ExportDirectory */
+    private ExportDirectory $exportDirectory;
+
     /**
      * Constructor.
      * 
@@ -55,87 +59,21 @@ class Export
             }
         }
         
-        // Setup export directory
-        $upload_dir = wp_upload_dir();
-        $this->export_dir = trailingslashit($upload_dir['basedir']) . 'worddown-export/';
+        
+        // Initialize the export directory
+        $this->exportDirectory = new ExportDirectory();
+        $this->export_dir = $this->exportDirectory->getLiveDirectory();
 
         // Initialize the HTML processor
         $this->htmlProcessor = new HtmlProcessor();
         
         // Initialize MarkdownConverter
         $this->markdownConverter = new MarkdownConverter();
-        
-        // Create export directory on activation
-        $this->setupExportDirectory();
-
         // Setup cron hook
         add_action('worddown_export_cron', [$this, 'handleExportCron']);
         add_action('worddown_process_export_chunk', [$this, 'processExportChunk'], 10, 2);
     }
 
-    /**
-     * Sets up the export directory with security files.
-     * 
-     * Creates the export directory if it doesn't exist and adds
-     * .htaccess and index.php files for security.
-     * 
-     * @return void
-     */
-    public function setupExportDirectory(): void
-    {
-        if (!file_exists($this->export_dir)) {
-            wp_mkdir_p($this->export_dir);
-            
-            // Add .htaccess to protect directory
-            $htaccess_file = $this->export_dir . '.htaccess';
-            if (!file_exists($htaccess_file)) {
-                $htaccess_content = "Options -Indexes\n";
-                $htaccess_content .= "Deny from all\n";
-                file_put_contents($htaccess_file, $htaccess_content);
-            }
-            
-            // Add index.php for extra protection
-            $index_file = $this->export_dir . 'index.php';
-            if (!file_exists($index_file)) {
-                file_put_contents($index_file, '<?php // Silence is golden');
-            }
-        }
-        
-        // Create post type subdirectories
-        $this->createPostTypeDirectories();
-    }
-
-    /**
-     * Creates subdirectories for each post type.
-     * 
-     * @return void
-     */
-    private function createPostTypeDirectories(): void
-    {
-        $settings = di(Settings::class);
-        $post_types = $this->settings::get('export_post_types', ['post', 'page']);
-        
-        foreach ($post_types as $post_type) {
-            $post_type_dir = $this->export_dir . $post_type . '/';
-            if (!file_exists($post_type_dir)) {
-                wp_mkdir_p($post_type_dir);
-                
-                // Add .htaccess to protect subdirectory
-                $htaccess_file = $post_type_dir . '.htaccess';
-                if (!file_exists($htaccess_file)) {
-                    $htaccess_content = "Options -Indexes\n";
-                    $htaccess_content .= "Deny from all\n";
-                    file_put_contents($htaccess_file, $htaccess_content);
-                }
-                
-                // Add index.php for extra protection
-                $index_file = $post_type_dir . 'index.php';
-                if (!file_exists($index_file)) {
-                    file_put_contents($index_file, '<?php // Silence is golden');
-                }
-            }
-        }
-    }
 
     /**
      * Gets the export directory path.
@@ -169,10 +107,11 @@ class Export
      */
     public function runExport(?array $post_types = null, ?int $limit = null, bool $background = false): int|array
     {
-        $settings = di(Settings::class);
         if ($post_types === null) {
             $post_types = $this->settings::get('export_post_types', ['post', 'page']);
         }
+
+        $this->exportDirectory->setupPendingDirectory();
 
         $include_drafts = !empty($this->settings::get('include_drafts', false));
         $include_private = !empty($this->settings::get('include_private', false));
@@ -213,13 +152,20 @@ class Export
             }
         }
         
-        update_option('worddown_last_export', [
-            'timestamp' => time(),
-            'count' => $exported_count,
-            'post_types' => $post_types
-        ]);
-        
-        return $exported_count;
+        if ($this->exportDirectory->swapDirectories()) {
+            update_option('worddown_last_export', [
+                'timestamp' => time(),
+                'count' => $exported_count,
+                'post_types' => $post_types
+            ]);
+
+            $this->exportDirectory->cleanupPendingDirectory();
+
+            return $exported_count;
+        }
+
+        $this->exportDirectory->cleanupPendingDirectory();
+        return 0;
     }
 
     /**
@@ -331,22 +277,26 @@ class Export
      */
     private function completeBackgroundExport(string $export_id, array $export_status): void
     {
-        $export_status['status'] = 'completed';
-        $export_status['completed_at'] = time();
-        $export_status['current_operation'] = __('Export completed successfully', 'worddown');
-        $export_status['progress_percentage'] = 100;
-        
-        update_option('worddown_export_status_' . $export_id, $export_status);
-        
-        // Update last export info
-        update_option('worddown_last_export', [
-            'timestamp' => time(),
-            'count' => $export_status['exported'],
-            'post_types' => $export_status['post_types']
-        ]);
-        
-        // Set completion flag for API to detect
-        update_option('worddown_export_completed_flag', true);
+        if ($this->exportDirectory->swapDirectories()) {
+            $export_status['status'] = 'completed';
+            $export_status['completed_at'] = time();
+            $export_status['current_operation'] = __('Export completed successfully', 'worddown');
+            $export_status['progress_percentage'] = 100;
+            
+            update_option('worddown_export_status_' . $export_id, $export_status);
+            
+            // Update last export info
+            update_option('worddown_last_export', [
+                'timestamp' => time(),
+                'count' => $export_status['exported'],
+                'post_types' => $export_status['post_types']
+            ]);
+            
+            // Set completion flag for API to detect
+            update_option('worddown_export_completed_flag', true);
+        } else {
+            $this->exportDirectory->cleanupPendingDirectory();
+        }
         
         // Clear current export ID
         delete_option('worddown_current_export_id');
@@ -429,6 +379,9 @@ class Export
         
         // Clear all scheduled cron jobs for this export using WordPress functions
         $this->clearScheduledExportJobs();
+
+        // Cleanup pending directory
+        $this->exportDirectory->cleanupPendingDirectory();
         
         // Set completion flag for API to detect cancelled export
         update_option('worddown_export_completed_flag', 'cancelled');
@@ -475,13 +428,7 @@ class Export
             $post_id
         );
         
-        // Ensure post type directory exists
-        $post_type_dir = $this->export_dir . $post_type . '/';
-        if (!file_exists($post_type_dir)) {
-            wp_mkdir_p($post_type_dir);
-        }
-        
-        $filepath = $post_type_dir . $filename;
+        $filepath = $this->exportDirectory->getPendingDirectory() . $post_type . '/' . $filename;
         
         $result = file_put_contents($filepath, $content);
         
