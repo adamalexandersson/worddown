@@ -35,6 +35,20 @@ The build process will:
 - Generate a manifest file for asset versioning
 - Output optimized files to the `dist` directory
 
+### Creating Distribution Package
+
+To prepare the plugin for distribution, first ensure you've built all assets using `npm run build`. Then use the WP-CLI command to create a distribution package:
+
+```bash
+wp dist-archive . ./releases/worddown.zip --create-target-dir --format=zip
+```
+
+This will:
+- Create a `releases` directory if it doesn't exist
+- Package all plugin files into a ZIP archive
+- Exclude development files and directories (like `node_modules`, `.git`, etc.)
+- Create a clean distribution-ready plugin ZIP file
+
 ### Build Output Structure
 
 After building, the following files will be generated in the `dist` directory:
