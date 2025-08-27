@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Temporary solution: These strings needs to be registered here so they gets added to the POT file. Later we should use the i18n API.
 
 return [

@@ -1,3 +1,16 @@
+<?php
+/**
+ * Header View
+ * 
+ * @package Worddown
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+?>
+
 <div class="worddown-plugin-header">
     <div class="worddown-header-bar">
         <div class="worddown-header-logo-bar">
