@@ -257,9 +257,11 @@ class Export
         // Estimate completion time
         if ($export_status['processed'] > 0) {
             $elapsed_time = time() - $export_status['started_at'];
-            $posts_per_second = $export_status['processed'] / $elapsed_time;
-            $remaining_posts = $export_status['total_posts'] - $export_status['processed'];
-            $export_status['estimated_completion'] = time() + ($remaining_posts / $posts_per_second);
+            if ($elapsed_time > 0) {
+                $posts_per_second = $export_status['processed'] / $elapsed_time;
+                $remaining_posts = $export_status['total_posts'] - $export_status['processed'];
+                $export_status['estimated_completion'] = time() + ($remaining_posts / $posts_per_second);
+            }
         }
         
         update_option('worddown_export_status_' . $export_id, $export_status);
