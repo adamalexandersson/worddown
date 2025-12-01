@@ -86,6 +86,10 @@ For large sites, we recommend using either the background mode via WP-CLI (`wp w
 
 == Changelog ==
 
+= 1.1.2
+* Fixes and improvements
+* Added testet up to Wordpress 6.9
+
 = 1.1.1
 * Fixes and improvements
 
