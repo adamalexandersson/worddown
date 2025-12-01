@@ -2,8 +2,8 @@
 Contributors: adamalexandersson
 Tags: markdown, export, ai, chatbot, content
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.1.1
+Tested up to: 6.9
+Stable tag: 1.1.2
 Requires PHP: 8.1
 License: GPL v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
