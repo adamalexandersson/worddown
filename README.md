@@ -217,6 +217,9 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.1.3
+- Add before/after export hooks to adapter. The Modularity adapter now uses these hooks for pre/post processing, reducing coupling and keeping the core exporter generic.
+
 ### 1.1.2
 - Fixes and improvements
 - Added testet up to Wordpress 6.9

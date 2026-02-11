@@ -3,7 +3,7 @@ Contributors: adamalexandersson
 Tags: markdown, export, ai, chatbot, content
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 Requires PHP: 8.1
 License: GPL v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -85,6 +85,9 @@ Yes, Worddown works with WordPress multisite installations. You can use the --ur
 For large sites, we recommend using either the background mode via WP-CLI (`wp worddown export --background`) or the REST API with the background parameter enabled.
 
 == Changelog ==
+
+= 1.1.3
+* Add before/after export hooks to adapter. The Modularity adapter now uses these hooks for pre/post processing, reducing coupling and keeping the core exporter generic.
 
 = 1.1.2
 * Fixes and improvements

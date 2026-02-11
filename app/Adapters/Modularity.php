@@ -19,6 +19,9 @@ class Modularity implements AdapterInterface
     /**
      * Runs before export starts. Removes Municipio image normalization from the_content
      * so raw img markup is preserved in the exported markdown.
+     * 
+     * @since 1.1.3
+     * @return void
      */
     public function beforeExport(): void
     {
@@ -33,6 +36,9 @@ class Modularity implements AdapterInterface
 
     /**
      * Runs after export finishes. Restores Municipio image normalization.
+     * 
+     * @since 1.1.3
+     * @return void
      */
     public function afterExport(): void
     {
