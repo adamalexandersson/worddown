@@ -10,6 +10,40 @@ use Worddown\Interfaces\AdapterInterface;
 
 class Modularity implements AdapterInterface
 {
+    public function __construct()
+    {
+        add_action('worddown_before_export', [$this, 'beforeExport']);
+        add_action('worddown_after_export', [$this, 'afterExport']);
+    }
+
+    /**
+     * Runs before export starts. Removes Municipio image normalization from the_content
+     * so raw img markup is preserved in the exported markdown.
+     */
+    public function beforeExport(): void
+    {
+        if (!class_exists('\Municipio\Content\Images\Images')) {
+            return;
+        }
+
+        $images = \Municipio\Content\Images\Images::GetImageNormalizer();
+        remove_filter('the_content', [$images, 'normalizeImages'], 5);
+        remove_filter('the_content', [$images, 'normalizeImages'], 11);
+    }
+
+    /**
+     * Runs after export finishes. Restores Municipio image normalization.
+     */
+    public function afterExport(): void
+    {
+        if (!class_exists('\Municipio\Content\Images\Images')) {
+            return;
+        }
+
+        $images = \Municipio\Content\Images\Images::GetImageNormalizer();
+        add_filter('the_content', [$images, 'normalizeImages'], 5);
+    }
+
     /**
      * Injects Modularity modules into the post content.
      * 

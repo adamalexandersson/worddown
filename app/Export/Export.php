@@ -19,6 +19,10 @@ if (!defined('ABSPATH')) {
  * This class manages the export process, including file creation,
  * HTML cleaning, and markdown content generation.
  * 
+ * Lifecycle hooks (for adapters/plugins to run code around export):
+ * - worddown_before_export  Fired once before processing posts (each chunk in background)
+ * - worddown_after_export   Fired once after processing posts (each chunk in background)
+ * 
  * @package Worddown
  * @since 1.0.0
  */
@@ -58,7 +62,6 @@ class Export
                 $this->adaptersManager->registerAdapter(new $adapterClass());
             }
         }
-        
         
         // Initialize the export directory
         $this->exportDirectory = new ExportDirectory();
@@ -146,10 +149,15 @@ class Export
         
         // Run immediate export (for small batches)
         $exported_count = 0;
-        foreach ($query->posts as $post_id) {
-            if ($this->exportPost($post_id)) {
-                $exported_count++;
+        do_action('worddown_before_export');
+        try {
+            foreach ($query->posts as $post_id) {
+                if ($this->exportPost($post_id)) {
+                    $exported_count++;
+                }
             }
+        } finally {
+            do_action('worddown_after_export');
         }
         
         if ($this->exportDirectory->swapDirectories()) {
@@ -212,6 +220,8 @@ class Export
      */
     public function processExportChunk(string $export_id, int $chunk_index): void
     {
+        do_action('worddown_before_export');
+
         $export_status = get_option('worddown_export_status_' . $export_id);
         if (!$export_status || $export_status['status'] !== 'running') {
             return;
@@ -265,6 +275,8 @@ class Export
         }
         
         update_option('worddown_export_status_' . $export_id, $export_status);
+
+        do_action('worddown_after_export');
         
         // Schedule next chunk (with small delay to prevent overwhelming the server)
         wp_schedule_single_event(time() + 2, 'worddown_process_export_chunk', [$export_id, $chunk_index + 1]);
