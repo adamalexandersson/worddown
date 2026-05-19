@@ -11,6 +11,8 @@ use Worddown\Assets\Assets;
 use Worddown\Export\Export;
 use Worddown\Export\Api;
 use Worddown\Export\Cli;
+use Worddown\Export\FileRepository;
+use Worddown\Mcp\Abilities;
 
 use WP_CLI;
 
@@ -43,7 +45,9 @@ class App
         Container::register(Settings::class, new Settings());
         Container::register(Assets::class, new Assets());
         Container::register(Export::class, new Export());
+        Container::register(FileRepository::class, new FileRepository());
         Container::register(Api::class, new Api());
+        Container::register(Abilities::class, new Abilities());
         Container::register(Cli::class, new Cli());
     }
 

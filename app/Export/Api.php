@@ -155,52 +155,7 @@ class Api
      */
     public function getFiles(): \WP_REST_Response
     {
-        $export = di(Export::class);
-        $settings = di(Settings::class);
-        $export_dir = $export->getExportDirectory();
-        $files = [];
-        
-        // Get all markdown files in the export directory and subdirectories
-        if (is_dir($export_dir)) {
-            // Get settings to know which post types to scan
-            $post_types = $settings::get('export_post_types', ['post', 'page']);
-            
-            foreach ($post_types as $post_type) {
-                $post_type_dir = $export_dir . $post_type . '/';
-                
-                if (is_dir($post_type_dir)) {
-                    $markdown_files = glob($post_type_dir . '*.md');
-                    
-                    foreach ($markdown_files as $file_path) {
-                        $filename = basename($file_path);
-                        
-                        // Parse filename to extract post ID: post-slug-123.md
-                        if (preg_match('/-(\d+)\.md$/', $filename, $matches)) {
-                            $post_id = (int) $matches[1];
-                            $post = get_post($post_id);
-                            
-                            if ($post) {
-                                $upload_dir = wp_upload_dir();
-                                $file_url = trailingslashit($upload_dir['baseurl']) . 'worddown-export/' . $post_type . '/' . $filename;
-                                
-                                $files[] = [
-                                    'id' => $post_id,
-                                    'title' => get_the_title($post_id),
-                                    'type' => get_post_type($post_id),
-                                    'permalink' => get_permalink($post_id),
-                                    'filename' => $filename,
-                                    'fileurl' => $file_url,
-                                    'file_size' => filesize($file_path),
-                                    'last_modified' => filemtime($file_path)
-                                ];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return rest_ensure_response($files);
+        return rest_ensure_response(di(FileRepository::class)->listFiles());
     }
 
     /**
@@ -217,41 +172,15 @@ class Api
      */
     public function getFile(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
     {
-        $export = di(Export::class);
-        $post_id = $request['id'];
-        $post = get_post($post_id);
-        
-        if (!$post) {
-            return new \WP_Error('not_found', 'Post not found', ['status' => 404]);
+        $result = di(FileRepository::class)->getFile((int) $request['id']);
+
+        if (is_wp_error($result)) {
+            return $result;
         }
-        
-        $export_dir = $export->getExportDirectory();
-        $post_type = get_post_type($post_id);
-        $slug = $post->post_name ?: sanitize_title(get_the_title($post_id));
-        $filename = sprintf('%s-%s-%d.md', $post_type, $slug, $post_id);
-        $file_path = $export_dir . $post_type . '/' . $filename;
-        
-        // Check if file exists, if not generate it
-        if (!file_exists($file_path)) {
-            $export->exportPost($post_id);
-        }
-        
-        // Check again after potential generation
-        if (!file_exists($file_path)) {
-            return new \WP_Error('export_failed', 'Failed to generate markdown file', ['status' => 500]);
-        }
-        
-        // Read the file content
-        $markdown_content = file_get_contents($file_path);
-        
-        if ($markdown_content === false) {
-            return new \WP_Error('read_failed', 'Failed to read markdown file', ['status' => 500]);
-        }
-        
-        // Output the markdown content directly as plain text
+
         status_header(200);
         header('Content-Type: text/plain; charset=utf-8');
-        echo esc_html($markdown_content);
+        echo esc_html($result['markdown']);
         exit;
     }
 
