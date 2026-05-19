@@ -49,6 +49,8 @@ class Assets
             wp_localize_script('worddown', 'worddown_variables', [
                 'restNonce' => wp_create_nonce('wp_rest'),
                 'restUrl' => esc_url_raw(rest_url()) . 'worddown/v1',
+                'siteUrl' => esc_url_raw(home_url()),
+                'mcpEndpoint' => esc_url_raw(rest_url('mcp/mcp-adapter-default-server')),
                 'strings' => $translations,
             ]);
         }

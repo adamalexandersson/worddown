@@ -2,6 +2,7 @@
 
 namespace Worddown\Mcp;
 
+use Worddown\Admin\Settings;
 use Worddown\Export\FileRepository;
 
 if (!defined('ABSPATH')) {
@@ -32,7 +33,7 @@ class Abilities
      */
     public function registerCategories(): void
     {
-        if (!function_exists('wp_register_ability_category')) {
+        if (!function_exists('wp_register_ability_category') || !$this->isMcpEnabled()) {
             return;
         }
 
@@ -49,7 +50,7 @@ class Abilities
      */
     public function registerAbilities(): void
     {
-        if (!function_exists('wp_register_ability')) {
+        if (!function_exists('wp_register_ability') || !$this->isMcpEnabled()) {
             return;
         }
 
@@ -114,6 +115,16 @@ class Abilities
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Whether MCP abilities are enabled in plugin settings.
+     *
+     * @return bool
+     */
+    private function isMcpEnabled(): bool
+    {
+        return !empty(Settings::get('mcp_enabled', false));
     }
 
     /**

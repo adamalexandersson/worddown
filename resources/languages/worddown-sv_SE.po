@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Worddown 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/worddown\n"
-"POT-Creation-Date: 2026-04-14T10:34:51+00:00\n"
-"PO-Revision-Date: 2026-04-14 12:50+0200\n"
+"POT-Creation-Date: 2026-05-19T11:08:58+00:00\n"
+"PO-Revision-Date: 2026-05-19 13:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: worddown\n"
 
 #. Plugin Name of the plugin
-#: worddown.php app/Application/App.php:70 app/Application/App.php:71
+#: worddown.php app/Application/App.php:74 app/Application/App.php:75
 msgid "Worddown"
 msgstr "Worddown"
 
@@ -48,28 +48,28 @@ msgid "Weekly"
 msgstr "Veckovis"
 
 #. translators: %s is the adapter label
-#: app/Admin/Settings.php:397
+#: app/Admin/Settings.php:399
 #, php-format
 msgid "Include %s content in export"
 msgstr "Inkludera %s modulers innehåll i exporten"
 
-#: app/Export/Api.php:345
+#: app/Export/Api.php:274
 msgid "Export cancelled"
 msgstr "Exporten avbröts"
 
-#: app/Export/Api.php:345
+#: app/Export/Api.php:274
 msgid "Export completed"
 msgstr "Exporten är klar"
 
-#: app/Export/Api.php:358
+#: app/Export/Api.php:287
 msgid "No export currently running"
 msgstr "Ingen export körs för närvarande"
 
-#: app/Export/Api.php:377
+#: app/Export/Api.php:306
 msgid "Export cancelled successfully"
 msgstr "Exporten avbröts"
 
-#: app/Export/Api.php:377
+#: app/Export/Api.php:306
 msgid "No export to cancel"
 msgstr "Ingen export att avbryta"
 
@@ -96,6 +96,36 @@ msgstr "Exporten har slutförts"
 #: app/Export/Export.php:390
 msgid "Export cancelled by user"
 msgstr "Exporten avbröts av användaren"
+
+#: app/Mcp/Abilities.php:41
+msgid "WordDown"
+msgstr "Worddown"
+
+#: app/Mcp/Abilities.php:42
+msgid "Abilities for accessing WordDown exported markdown files."
+msgstr "Möjligheter att komma åt exporterade markdown-filer från Worddown."
+
+#: app/Mcp/Abilities.php:58
+msgid "List exported markdown files"
+msgstr "Lista exporterade markdown-filer"
+
+#: app/Mcp/Abilities.php:59
+msgid "Returns metadata for every markdown file WordDown has exported."
+msgstr ""
+"Returnerar metadata för varje markdown-fil som WordDown har exporterat."
+
+#: app/Mcp/Abilities.php:85
+msgid "Get exported markdown file"
+msgstr "Hämta exporterad markdown-fil"
+
+#: app/Mcp/Abilities.php:86
+msgid "Returns metadata and markdown content for a specific post by ID."
+msgstr ""
+"Returnerar metadata och markdown-innehåll för ett specifikt inlägg efter ID."
+
+#: app/Mcp/Abilities.php:93
+msgid "WordPress post ID"
+msgstr "WordPress-inläggs-ID"
 
 #: config/settings.php:12
 msgid "General"
@@ -149,11 +179,11 @@ msgstr ""
 "Antal poster som behandlas i varje omgång vid bakgrundsexport. Lägre värden "
 "använder mindre minne men tar längre tid."
 
-#: config/settings.php:54 config/strings.php:51
+#: config/settings.php:54
 msgid "Metadata to include"
 msgstr "Metadata att inkludera"
 
-#: config/settings.php:55 config/strings.php:52
+#: config/settings.php:55
 msgid ""
 "Choose which meta fields to include at the top of each exported markdown "
 "file."
@@ -161,107 +191,107 @@ msgstr ""
 "Välj vilka metafält som ska inkluderas högst upp i varje exporterad markdown-"
 "fil."
 
-#: config/settings.php:60 config/strings.php:53
+#: config/settings.php:60
 msgid "Date"
 msgstr "Datum"
 
-#: config/settings.php:61 config/strings.php:54
+#: config/settings.php:61
 msgid "Include publication date"
 msgstr "Inkludera publiceringsdatum"
 
-#: config/settings.php:62 config/strings.php:55
+#: config/settings.php:62
 msgid "Adds the `date` field (Y-m-d H:i:s)."
 msgstr "Lägger till fältet `date` (Å-m-d H:i:s)."
 
-#: config/settings.php:68 config/strings.php:56
+#: config/settings.php:68
 msgid "Modified"
 msgstr "Ändrad"
 
-#: config/settings.php:69 config/strings.php:57
+#: config/settings.php:69
 msgid "Include last modified date"
 msgstr "Inkludera datum för senaste ändring"
 
-#: config/settings.php:70 config/strings.php:58
+#: config/settings.php:70
 msgid "Adds the `modified` field (Y-m-d H:i:s)."
 msgstr "Lägger till fältet `modified` (Y-m-d H:i:s)."
 
-#: config/settings.php:76 config/strings.php:59
+#: config/settings.php:76
 msgid "Slug"
 msgstr "Inläggsslug"
 
-#: config/settings.php:77 config/strings.php:60
+#: config/settings.php:77
 msgid "Include post slug"
 msgstr "Inkludera inläggsslug"
 
-#: config/settings.php:78 config/strings.php:61
+#: config/settings.php:78
 msgid "Adds the `slug` field."
 msgstr "Lägger till fältet `slug`."
 
-#: config/settings.php:84 config/strings.php:62
+#: config/settings.php:84
 msgid "Post ID"
 msgstr "Inläggs-ID"
 
-#: config/settings.php:85 config/strings.php:63
+#: config/settings.php:85
 msgid "Include WordPress post ID"
 msgstr "Inkludera WordPress-inläggs-ID"
 
-#: config/settings.php:86 config/strings.php:64
+#: config/settings.php:86
 msgid "Adds the `id` field."
 msgstr "Lägger till fältet `id`."
 
-#: config/settings.php:92 config/strings.php:65
+#: config/settings.php:92
 msgid "Post type"
 msgstr "Inläggstyp"
 
-#: config/settings.php:93 config/strings.php:66
+#: config/settings.php:93
 msgid "Include post type"
 msgstr "Inkludera Inläggstyp"
 
-#: config/settings.php:94 config/strings.php:67
+#: config/settings.php:94
 msgid "Adds the `type` field."
 msgstr "Lägger till fältet `type`."
 
-#: config/settings.php:100 config/strings.php:68
+#: config/settings.php:100
 msgid "Excerpt"
 msgstr "Utdrag"
 
-#: config/settings.php:101 config/strings.php:69
+#: config/settings.php:101
 msgid "Include excerpt"
 msgstr "Inkludera utdrag"
 
-#: config/settings.php:102 config/strings.php:70
+#: config/settings.php:102
 msgid "Adds the `excerpt` field."
 msgstr "Lägger till fältet `excerpt`."
 
-#: config/settings.php:108 config/strings.php:71
+#: config/settings.php:108
 msgid "Permalink"
 msgstr "Permalänk"
 
-#: config/settings.php:109 config/strings.php:72
+#: config/settings.php:109
 msgid "Include permalink URL"
 msgstr "Inkludera permalänk-URL"
 
-#: config/settings.php:110 config/strings.php:73
+#: config/settings.php:110
 msgid "Adds the `permalink` field."
 msgstr "Lägger till fältet `permalink`."
 
-#: config/settings.php:116 config/strings.php:74
+#: config/settings.php:116
 msgid "Categories"
 msgstr "Kategorier"
 
-#: config/settings.php:117 config/strings.php:75
+#: config/settings.php:117
 msgid "Include category names"
 msgstr "Inkludera kategorinamn"
 
-#: config/settings.php:118 config/strings.php:76
+#: config/settings.php:118
 msgid "Adds the `category` field when the post has categories."
 msgstr "Lägger till fältet `category` när inlägget har kategorier."
 
-#: config/settings.php:124 config/strings.php:77
+#: config/settings.php:124
 msgid "Author"
 msgstr "Författare"
 
-#: config/settings.php:125 config/strings.php:78
+#: config/settings.php:125
 msgid ""
 "Optional author metadata under `author`. Can expose personal or account "
 "data; only enable what you intend to publish."
@@ -269,57 +299,57 @@ msgstr ""
 "Valfri författarmetadata under \"författare\". Kan exponera personliga data "
 "eller kontodata; aktivera endast det du avser att publicera."
 
-#: config/settings.php:131 config/strings.php:79
+#: config/settings.php:131
 msgid "Username"
 msgstr "Användarnamn"
 
-#: config/settings.php:132 config/strings.php:80
+#: config/settings.php:132
 msgid "Include login name"
 msgstr "Inkludera användarnamn"
 
-#: config/settings.php:133 config/strings.php:81
+#: config/settings.php:133
 msgid ""
 "Adds `author.username`. May expose account identifiers if files are shared."
 msgstr ""
 "Lägger till `author.username`. Kan exponera kontoidentifierare om filer "
 "delas."
 
-#: config/settings.php:139 config/strings.php:82
+#: config/settings.php:139
 msgid "Display name"
 msgstr "Visningsnamn"
 
-#: config/settings.php:140 config/strings.php:83
+#: config/settings.php:140
 msgid "Include display name"
 msgstr "Inkludera visningsnamn"
 
-#: config/settings.php:141 config/strings.php:84
+#: config/settings.php:141
 msgid "Adds `author.name` (WordPress display name)."
 msgstr "Lägger till `author.name` (WordPress-visningsnamn)."
 
-#: config/settings.php:147 config/strings.php:85
+#: config/settings.php:147
 msgid "Email"
 msgstr "E-post"
 
-#: config/settings.php:148 config/strings.php:86
+#: config/settings.php:148
 msgid "Include email address"
 msgstr "Inkludera e-postadress"
 
-#: config/settings.php:149 config/strings.php:87
+#: config/settings.php:149
 msgid ""
 "Adds `author.email`. Sensitive: can end up in git, backups, or public URLs."
 msgstr ""
 "Lägger till `author.email`. Känslig: kan hamna i git, säkerhetskopior eller "
 "publika URL:er."
 
-#: config/settings.php:155 config/strings.php:88
+#: config/settings.php:155
 msgid "Role slugs"
 msgstr "Roller"
 
-#: config/settings.php:156 config/strings.php:89
+#: config/settings.php:156
 msgid "Include WordPress role slugs"
 msgstr "Inkludera WordPress roller"
 
-#: config/settings.php:157 config/strings.php:90
+#: config/settings.php:157
 msgid "Adds `author.roles` (list of WordPress role slugs)."
 msgstr "Lägger till `author.roles` (lista över WordPress-roller)."
 
@@ -440,6 +470,85 @@ msgstr ""
 
 #: config/settings.php:272
 msgid "Example Usage (cURL)"
+msgstr "Exempel på användning (cURL)"
+
+#: config/settings.php:285
+msgid "MCP"
+msgstr "MCP"
+
+#: config/settings.php:289
+msgid "Model Context Protocol"
+msgstr "Model Context Protocol"
+
+#: config/settings.php:290
+msgid ""
+"Expose exported markdown via WordPress abilities for the MCP Adapter default "
+"server. Requires WordPress 6.9+ and the MCP Adapter plugin to be installed "
+"separately."
+msgstr ""
+"Exponera exporterad markdown via WordPress standardserver för MCP. Kräver "
+"att WordPress 6.9+ och MCP Adapter-pluginet installeras separat."
+
+#: config/settings.php:295
+msgid "MCP abilities"
+msgstr "MCP-förmågor"
+
+#: config/settings.php:296
+msgid "Enable WordDown MCP abilities"
+msgstr "Aktivera Worddown MCP-förmågor"
+
+#: config/settings.php:297
+msgid ""
+"Registers list-files and get-file abilities for discovery on the default MCP "
+"server."
+msgstr ""
+"Registrerar list-files och get-file-funktioner för exponering på Wordpress "
+"standard server för MCP."
+
+#: config/settings.php:303
+msgid "Default MCP server"
+msgstr "Standard MCP-server"
+
+#: config/settings.php:304
+msgid ""
+"Use a WordPress Application Password (Users → Profile) for HTTP "
+"authentication. Every request except initialize must include the Mcp-Session-"
+"Id header from the initialize response."
+msgstr ""
+"Använd ett WordPress-applikationslösenord (Användare → Profil) för HTTP-"
+"autentisering. Varje begäran utom initialisering måste innehålla Mcp-Session-"
+"Id-rubriken från initialiseringssvaret."
+
+#: config/settings.php:310
+msgid ""
+"MCP Adapter default server (JSON-RPC). Methods: initialize, tools/list, "
+"tools/call."
+msgstr ""
+"MCP-adapterns standardserver (JSON-RPC). Metoder: initialize, tools/list, "
+"tools/call."
+
+#: config/settings.php:315
+msgid "WordDown abilities"
+msgstr "Worddown-förmågor"
+
+#: config/settings.php:316
+msgid ""
+"Invoked via the mcp-adapter-execute-ability tool when MCP abilities are "
+"enabled."
+msgstr ""
+"Anropas via verktyget mcp-adapter-execute-ability när MCP-funktioner är "
+"aktiverade."
+
+#: config/settings.php:322
+msgid "List metadata for all exported markdown files."
+msgstr "Lista metadata för alla exporterade markdown-filer."
+
+#: config/settings.php:328
+msgid "Get metadata and markdown content for one post (parameter: id)."
+msgstr "Hämta metadata och markdown-innehåll för ett inlägg (parameter: id)."
+
+#: config/settings.php:333
+msgid "Example usage (cURL)"
 msgstr "Exempel på användning (cURL)"
 
 #: config/strings.php:11
