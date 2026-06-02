@@ -72,7 +72,7 @@ class App
             'manage_options',
             'worddown',
             false,
-            'data:image/svg+xml;base64,' . base64_encode(icon('worddown-alt')),
+            menu_icon_url('worddown-alt'),
             30
         );
     }

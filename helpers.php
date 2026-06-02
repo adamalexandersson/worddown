@@ -42,6 +42,25 @@ if (!function_exists('icon')) {
     }
 }
 
+if (!function_exists('menu_icon_url')) {
+    function menu_icon_url(string $name): string {
+        $relative = di(ViteManifest::class)->getAsset('resources/assets/icons/' . $name . '.svg');
+        $svg = file_get_contents(config('paths.plugin_path') . 'dist/' . $relative);
+
+        return 'data:image/svg+xml;base64,' . base64_encode(prepare_menu_icon_svg($svg));
+    }
+}
+
+if (!function_exists('prepare_menu_icon_svg')) {
+    function prepare_menu_icon_svg(string $svg): string {
+        $svg = preg_replace('/\s(width|height)="[^"]*"/i', '', $svg);
+        $svg = preg_replace('/<svg\b/i', '<svg width="20" height="20"', $svg, 1);
+        $svg = preg_replace('/\sfill="currentColor"/i', '', $svg);
+
+        return preg_replace('/<path\b/i', '<path fill="#ffffff"', $svg, 1);
+    }
+}
+
 if (!function_exists('esc_svg')) {
     function esc_svg($svg) {
         return wp_kses($svg, allowed_svg_tags());
