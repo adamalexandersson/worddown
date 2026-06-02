@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/card"
 
 import { Skeleton } from "@/components/ui/skeleton"
-import { Settings as SettingsIcon, Key as KeyIcon, CalendarSync as CalendarSyncIcon } from "lucide-react";
+import { Settings as SettingsIcon, Key as KeyIcon, CalendarSync as CalendarSyncIcon, Plug as PlugIcon } from "lucide-react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -69,6 +69,8 @@ declare global {
     worddown_variables?: {
       restUrl?: string;
       restNonce?: string;
+      siteUrl?: string;
+      mcpEndpoint?: string;
       strings?: Record<string, string>;
     };
   }
@@ -130,6 +132,20 @@ export default function SettingsPanel() {
 
   function handleChange(key: string, value: any) {
     setSettings(prev => ({ ...(prev || {}), [key]: value }));
+  }
+
+  function interpolateCodeTemplate(code: string): string {
+    const siteUrl = window.worddown_variables?.siteUrl || window.location.origin;
+    const mcpEndpoint =
+      window.worddown_variables?.mcpEndpoint || `${siteUrl}/wp-json/mcp/mcp-adapter-default-server`;
+    const apiKey = settings?.api_key ?? '{api_key}';
+
+    return code
+      .replace(/\{site_url\}/g, siteUrl)
+      .replace(/\{mcp_endpoint\}/g, mcpEndpoint)
+      .replace(/\{api_key\}/g, apiKey || '{api_key}')
+      .replace(/\{wp_username\}/g, '{wp_username}')
+      .replace(/\{application_password\}/g, '{application_password}');
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -440,6 +456,9 @@ export default function SettingsPanel() {
                   if (tab.key === 'schedule') {
                     Icon = CalendarSyncIcon;
                   }
+                  if (tab.key === 'mcp') {
+                    Icon = PlugIcon;
+                  }
                   return (
                     <TabsTrigger
                       key={tab.key}
@@ -482,8 +501,10 @@ export default function SettingsPanel() {
                                       {item.method}
                                     </span>
                                     <div>
-                                      <span className="font-mono bg-muted px-2 py-1 rounded text-xs text-foreground select-all">
-                                        {item.url}
+                                      <span className="font-mono bg-muted px-2 py-1 rounded text-xs text-foreground select-all break-all">
+                                        {item.url.startsWith('/') && window.worddown_variables?.siteUrl
+                                          ? `${window.worddown_variables.siteUrl}${item.url}`
+                                          : item.url}
                                       </span>
 
                                       <div className="text-xs text-muted-foreground mt-3">{item.desc}</div>
@@ -501,7 +522,7 @@ export default function SettingsPanel() {
                                     customStyle={{ borderRadius: '0.5rem', fontSize: '0.85rem', padding: '1rem', background: 'rgb(40, 44, 52)' }}
                                     showLineNumbers={false}
                                   >
-                                    {item.code}
+                                    {interpolateCodeTemplate(item.code)}
                                   </SyntaxHighlighter>
                                 </div>
                               );

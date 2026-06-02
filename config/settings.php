@@ -280,5 +280,66 @@ return [
                 ],
             ],
         ],
+        [
+            'key' => 'mcp',
+            'label' => __('MCP', 'worddown'),
+            'icon' => 'plug',
+            'sections' => [
+                [
+                    'title' => __('Model Context Protocol', 'worddown'),
+                    'description' => __('Expose exported markdown via WordPress abilities for the MCP Adapter default server. Requires WordPress 6.9+ and the MCP Adapter plugin to be installed separately.', 'worddown'),
+                    'fields' => [
+                        [
+                            'key' => 'mcp_enabled',
+                            'type' => 'boolean',
+                            'label' => __('MCP abilities', 'worddown'),
+                            'switch_label' => __('Enable WordDown MCP abilities', 'worddown'),
+                            'description' => __('Registers list-files and get-file abilities for discovery on the default MCP server.', 'worddown'),
+                            'default' => false,
+                        ],
+                    ],
+                ],
+                [
+                    'title' => __('Default MCP server', 'worddown'),
+                    'description' => __('Use a WordPress Application Password (Users → Profile) for HTTP authentication. Every request except initialize must include the Mcp-Session-Id header from the initialize response.', 'worddown'),
+                    'content' => [
+                        [
+                            'type' => 'endpoint',
+                            'method' => 'POST',
+                            'url' => '/wp-json/mcp/mcp-adapter-default-server',
+                            'desc' => __('MCP Adapter default server (JSON-RPC). Methods: initialize, tools/list, tools/call.', 'worddown'),
+                        ],
+                    ],
+                ],
+                [
+                    'title' => __('WordDown abilities', 'worddown'),
+                    'description' => __('Invoked via the mcp-adapter-execute-ability tool when MCP abilities are enabled.', 'worddown'),
+                    'content' => [
+                        [
+                            'type' => 'endpoint',
+                            'method' => 'ABILITY',
+                            'url' => 'worddown/list-files',
+                            'desc' => __('List metadata for all exported markdown files.', 'worddown'),
+                        ],
+                        [
+                            'type' => 'endpoint',
+                            'method' => 'ABILITY',
+                            'url' => 'worddown/get-file',
+                            'desc' => __('Get metadata and markdown content for one post (parameter: id).', 'worddown'),
+                        ],
+                    ],
+                ],
+                [
+                    'title' => __('Example usage (cURL)', 'worddown'),
+                    'content' => [
+                        [
+                            'type' => 'code',
+                            'language' => 'bash',
+                            'code' => "# 1. Initialize — copy Mcp-Session-Id from the response headers\ncurl -s -D - -X POST \"{mcp_endpoint}\" \\\n  -u \"{wp_username}:{application_password}\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{},\"clientInfo\":{\"name\":\"curl-test\",\"version\":\"1.0\"}}}'\n\n# Save the session id from the Mcp-Session-Id header:\nexport SESSION=\"paste-session-id-here\"\n\n# 2. List available MCP tools\ncurl -s -X POST \"{mcp_endpoint}\" \\\n  -u \"{wp_username}:{application_password}\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Mcp-Session-Id: \$SESSION\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}'\n\n# 3. Discover WordDown abilities (requires MCP abilities enabled above)\ncurl -s -X POST \"{mcp_endpoint}\" \\\n  -u \"{wp_username}:{application_password}\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Mcp-Session-Id: \$SESSION\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"mcp-adapter-discover-abilities\",\"arguments\":{}}}'\n\n# 4. Execute worddown/list-files\ncurl -s -X POST \"{mcp_endpoint}\" \\\n  -u \"{wp_username}:{application_password}\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Mcp-Session-Id: \$SESSION\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"mcp-adapter-execute-ability\",\"arguments\":{\"ability_name\":\"worddown/list-files\",\"parameters\":{}}}}'\n\n# 5. Execute worddown/get-file (replace 1 with a post ID from step 4)\ncurl -s -X POST \"{mcp_endpoint}\" \\\n  -u \"{wp_username}:{application_password}\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Mcp-Session-Id: \$SESSION\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":5,\"method\":\"tools/call\",\"params\":{\"name\":\"mcp-adapter-execute-ability\",\"arguments\":{\"ability_name\":\"worddown/get-file\",\"parameters\":{\"id\":1}}}}'",
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ],
 ]; 

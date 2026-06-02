@@ -2,22 +2,22 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Worddown 1.1.3\n"
+"Project-Id-Version: Worddown 1.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/worddown\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-14T10:34:51+00:00\n"
+"POT-Creation-Date: 2026-05-19T11:08:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: worddown\n"
 
 #. Plugin Name of the plugin
 #: worddown.php
-#: app/Application/App.php:70
-#: app/Application/App.php:71
+#: app/Application/App.php:74
+#: app/Application/App.php:75
 msgid "Worddown"
 msgstr ""
 
@@ -49,28 +49,28 @@ msgid "Weekly"
 msgstr ""
 
 #. translators: %s is the adapter label
-#: app/Admin/Settings.php:397
+#: app/Admin/Settings.php:399
 #, php-format
 msgid "Include %s content in export"
 msgstr ""
 
-#: app/Export/Api.php:345
+#: app/Export/Api.php:274
 msgid "Export cancelled"
 msgstr ""
 
-#: app/Export/Api.php:345
+#: app/Export/Api.php:274
 msgid "Export completed"
 msgstr ""
 
-#: app/Export/Api.php:358
+#: app/Export/Api.php:287
 msgid "No export currently running"
 msgstr ""
 
-#: app/Export/Api.php:377
+#: app/Export/Api.php:306
 msgid "Export cancelled successfully"
 msgstr ""
 
-#: app/Export/Api.php:377
+#: app/Export/Api.php:306
 msgid "No export to cancel"
 msgstr ""
 
@@ -96,6 +96,34 @@ msgstr ""
 
 #: app/Export/Export.php:390
 msgid "Export cancelled by user"
+msgstr ""
+
+#: app/Mcp/Abilities.php:41
+msgid "WordDown"
+msgstr ""
+
+#: app/Mcp/Abilities.php:42
+msgid "Abilities for accessing WordDown exported markdown files."
+msgstr ""
+
+#: app/Mcp/Abilities.php:58
+msgid "List exported markdown files"
+msgstr ""
+
+#: app/Mcp/Abilities.php:59
+msgid "Returns metadata for every markdown file WordDown has exported."
+msgstr ""
+
+#: app/Mcp/Abilities.php:85
+msgid "Get exported markdown file"
+msgstr ""
+
+#: app/Mcp/Abilities.php:86
+msgid "Returns metadata and markdown content for a specific post by ID."
+msgstr ""
+
+#: app/Mcp/Abilities.php:93
+msgid "WordPress post ID"
 msgstr ""
 
 #: config/settings.php:12
@@ -147,202 +175,162 @@ msgid "Number of posts to process in each batch during background exports. Lower
 msgstr ""
 
 #: config/settings.php:54
-#: config/strings.php:51
 msgid "Metadata to include"
 msgstr ""
 
 #: config/settings.php:55
-#: config/strings.php:52
 msgid "Choose which meta fields to include at the top of each exported markdown file."
 msgstr ""
 
 #: config/settings.php:60
-#: config/strings.php:53
 msgid "Date"
 msgstr ""
 
 #: config/settings.php:61
-#: config/strings.php:54
 msgid "Include publication date"
 msgstr ""
 
 #: config/settings.php:62
-#: config/strings.php:55
 msgid "Adds the `date` field (Y-m-d H:i:s)."
 msgstr ""
 
 #: config/settings.php:68
-#: config/strings.php:56
 msgid "Modified"
 msgstr ""
 
 #: config/settings.php:69
-#: config/strings.php:57
 msgid "Include last modified date"
 msgstr ""
 
 #: config/settings.php:70
-#: config/strings.php:58
 msgid "Adds the `modified` field (Y-m-d H:i:s)."
 msgstr ""
 
 #: config/settings.php:76
-#: config/strings.php:59
 msgid "Slug"
 msgstr ""
 
 #: config/settings.php:77
-#: config/strings.php:60
 msgid "Include post slug"
 msgstr ""
 
 #: config/settings.php:78
-#: config/strings.php:61
 msgid "Adds the `slug` field."
 msgstr ""
 
 #: config/settings.php:84
-#: config/strings.php:62
 msgid "Post ID"
 msgstr ""
 
 #: config/settings.php:85
-#: config/strings.php:63
 msgid "Include WordPress post ID"
 msgstr ""
 
 #: config/settings.php:86
-#: config/strings.php:64
 msgid "Adds the `id` field."
 msgstr ""
 
 #: config/settings.php:92
-#: config/strings.php:65
 msgid "Post type"
 msgstr ""
 
 #: config/settings.php:93
-#: config/strings.php:66
 msgid "Include post type"
 msgstr ""
 
 #: config/settings.php:94
-#: config/strings.php:67
 msgid "Adds the `type` field."
 msgstr ""
 
 #: config/settings.php:100
-#: config/strings.php:68
 msgid "Excerpt"
 msgstr ""
 
 #: config/settings.php:101
-#: config/strings.php:69
 msgid "Include excerpt"
 msgstr ""
 
 #: config/settings.php:102
-#: config/strings.php:70
 msgid "Adds the `excerpt` field."
 msgstr ""
 
 #: config/settings.php:108
-#: config/strings.php:71
 msgid "Permalink"
 msgstr ""
 
 #: config/settings.php:109
-#: config/strings.php:72
 msgid "Include permalink URL"
 msgstr ""
 
 #: config/settings.php:110
-#: config/strings.php:73
 msgid "Adds the `permalink` field."
 msgstr ""
 
 #: config/settings.php:116
-#: config/strings.php:74
 msgid "Categories"
 msgstr ""
 
 #: config/settings.php:117
-#: config/strings.php:75
 msgid "Include category names"
 msgstr ""
 
 #: config/settings.php:118
-#: config/strings.php:76
 msgid "Adds the `category` field when the post has categories."
 msgstr ""
 
 #: config/settings.php:124
-#: config/strings.php:77
 msgid "Author"
 msgstr ""
 
 #: config/settings.php:125
-#: config/strings.php:78
 msgid "Optional author metadata under `author`. Can expose personal or account data; only enable what you intend to publish."
 msgstr ""
 
 #: config/settings.php:131
-#: config/strings.php:79
 msgid "Username"
 msgstr ""
 
 #: config/settings.php:132
-#: config/strings.php:80
 msgid "Include login name"
 msgstr ""
 
 #: config/settings.php:133
-#: config/strings.php:81
 msgid "Adds `author.username`. May expose account identifiers if files are shared."
 msgstr ""
 
 #: config/settings.php:139
-#: config/strings.php:82
 msgid "Display name"
 msgstr ""
 
 #: config/settings.php:140
-#: config/strings.php:83
 msgid "Include display name"
 msgstr ""
 
 #: config/settings.php:141
-#: config/strings.php:84
 msgid "Adds `author.name` (WordPress display name)."
 msgstr ""
 
 #: config/settings.php:147
-#: config/strings.php:85
 msgid "Email"
 msgstr ""
 
 #: config/settings.php:148
-#: config/strings.php:86
 msgid "Include email address"
 msgstr ""
 
 #: config/settings.php:149
-#: config/strings.php:87
 msgid "Adds `author.email`. Sensitive: can end up in git, backups, or public URLs."
 msgstr ""
 
 #: config/settings.php:155
-#: config/strings.php:88
 msgid "Role slugs"
 msgstr ""
 
 #: config/settings.php:156
-#: config/strings.php:89
 msgid "Include WordPress role slugs"
 msgstr ""
 
 #: config/settings.php:157
-#: config/strings.php:90
 msgid "Adds `author.roles` (list of WordPress role slugs)."
 msgstr ""
 
@@ -448,6 +436,62 @@ msgstr ""
 
 #: config/settings.php:272
 msgid "Example Usage (cURL)"
+msgstr ""
+
+#: config/settings.php:285
+msgid "MCP"
+msgstr ""
+
+#: config/settings.php:289
+msgid "Model Context Protocol"
+msgstr ""
+
+#: config/settings.php:290
+msgid "Expose exported markdown via WordPress abilities for the MCP Adapter default server. Requires WordPress 6.9+ and the MCP Adapter plugin to be installed separately."
+msgstr ""
+
+#: config/settings.php:295
+msgid "MCP abilities"
+msgstr ""
+
+#: config/settings.php:296
+msgid "Enable WordDown MCP abilities"
+msgstr ""
+
+#: config/settings.php:297
+msgid "Registers list-files and get-file abilities for discovery on the default MCP server."
+msgstr ""
+
+#: config/settings.php:303
+msgid "Default MCP server"
+msgstr ""
+
+#: config/settings.php:304
+msgid "Use a WordPress Application Password (Users → Profile) for HTTP authentication. Every request except initialize must include the Mcp-Session-Id header from the initialize response."
+msgstr ""
+
+#: config/settings.php:310
+msgid "MCP Adapter default server (JSON-RPC). Methods: initialize, tools/list, tools/call."
+msgstr ""
+
+#: config/settings.php:315
+msgid "WordDown abilities"
+msgstr ""
+
+#: config/settings.php:316
+msgid "Invoked via the mcp-adapter-execute-ability tool when MCP abilities are enabled."
+msgstr ""
+
+#: config/settings.php:322
+msgid "List metadata for all exported markdown files."
+msgstr ""
+
+#: config/settings.php:328
+msgid "Get metadata and markdown content for one post (parameter: id)."
+msgstr ""
+
+#: config/settings.php:333
+msgid "Example usage (cURL)"
 msgstr ""
 
 #: config/strings.php:11
