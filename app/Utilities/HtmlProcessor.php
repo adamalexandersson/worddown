@@ -21,26 +21,26 @@ class HtmlProcessor
     public function cleanHtmlForMarkdown(string $content): string
     {   
         // Remove style tags and their content completely
-        $content = preg_replace('/<style[^>]*>.*?<\/style>/s', '', $content);
+        $content = $this->safePregReplace('/<style[^>]*>.*?<\/style>/s', '', $content);
         
         // Remove HTML-encoded style tags and their content
-        $content = preg_replace('/&lt;style[^&]*&gt;.*?&lt;\/style&gt;/s', '', $content);
+        $content = $this->safePregReplace('/&lt;style[^&]*&gt;.*?&lt;\/style&gt;/s', '', $content);
         
         // Remove script tags and their content completely
-        $content = preg_replace('/<script[^>]*>.*?<\/script>/s', '', $content);
+        $content = $this->safePregReplace('/<script[^>]*>.*?<\/script>/s', '', $content);
 
         // Replace <span> tags with <div> tags
-        $content = preg_replace(['/<span(\s|>)/i', '/<\/span>/i'], ['<div$1', '</div>'], $content);
+        $content = $this->safePregReplace(['/<span(\s|>)/i', '/<\/span>/i'], ['<div$1', '</div>'], $content);
 
         // Remove all HTML comments
-        $content = preg_replace('/<!--.*?-->/s', '', $content);
+        $content = $this->safePregReplace('/<!--.*?-->/s', '', $content);
 
         // Remove all disallowed class elements
         $content = $this->removeElementByClass($content);
 
         // Unwrap headings (h1-h6) from surrounding <div> and <a> tags (repeat to handle nesting)
         for ($i = 0; $i < 3; $i++) {
-            $content = preg_replace('/<(div|a)[^>]*>\s*(<h[1-6][^>]*>.*?<\/h[1-6]>)/is', '$2', $content);
+            $content = $this->safePregReplace('/<(div|a)[^>]*>\s*(<h[1-6][^>]*>.*?<\/h[1-6]>)/is', '$2', $content);
         }
         
         // Clean and format the HTML
@@ -64,33 +64,33 @@ class HtmlProcessor
     private function trimAndFormatHtml(string $html): string
     {
         // Remove empty divs and spans
-        $html = preg_replace('/<div[^>]*>\s*<\/div>/', '', $html);
-        $html = preg_replace('/<span[^>]*>\s*<\/span>/', '', $html);
+        $html = $this->safePregReplace('/<div[^>]*>\s*<\/div>/', '', $html);
+        $html = $this->safePregReplace('/<span[^>]*>\s*<\/span>/', '', $html);
         
         // Remove divs that only contain empty divs
-        $html = preg_replace('/<div[^>]*>\s*(<div[^>]*>\s*<\/div>\s*)*<\/div>/', '', $html);
+        $html = $this->safePregReplace('/<div[^>]*>\s*(<div[^>]*>\s*<\/div>\s*)*<\/div>/', '', $html);
         
         // Clean up excessive whitespace
-        $html = preg_replace('/\s+/', ' ', $html);
+        $html = $this->safePregReplace('/\s+/', ' ', $html);
         
         // Remove whitespace between tags
-        $html = preg_replace('/>\s+</', '><', $html);
+        $html = $this->safePregReplace('/>\s+</', '><', $html);
         
         // Add proper spacing around block elements
         $block_elements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'ul', 'ol', 'blockquote'];
         foreach ($block_elements as $element) {
-            $html = preg_replace('/<\/' . $element . '>/', '</' . $element . ">\n", $html);
-            $html = preg_replace('/<' . $element . '[^>]*>/', "\n<" . $element . '>', $html);
+            $html = $this->safePregReplace('/<\/' . $element . '>/', '</' . $element . ">\n", $html);
+            $html = $this->safePregReplace('/<' . $element . '[^>]*>/', "\n<" . $element . '>', $html);
         }
 
         // Trim whitespace inside all heading tags (h1-h6)
-        $html = preg_replace_callback('/<h([1-6])([^>]*)>(.*?)<\/h\1>/is', function($matches) {
+        $html = $this->safePregReplaceCallback('/<h([1-6])([^>]*)>(.*?)<\/h\1>/is', function($matches) {
             $trimmed = trim($matches[3]);
             return '<h' . $matches[1] . $matches[2] . '>' . $trimmed . '</h' . $matches[1] . '>';
         }, $html);
         
         // Clean up multiple newlines
-        $html = preg_replace('/\n\s*\n/', "\n", $html);
+        $html = $this->safePregReplace('/\n\s*\n/', "\n", $html);
 
         $html = $this->trimTagContent($html, ['div', 'p']);
         
@@ -111,7 +111,7 @@ class HtmlProcessor
     private function preprocessHtmlForMarkdown(string $content): string
     {
         // Remove all <a> tags with href starting with '#' (hash links), but keep their content
-        $content = preg_replace(
+        $content = $this->safePregReplace(
             '/<a\b[^>]*href\s*=\s*["\']#.*?["\'][^>]*>(.*?)<\/a>/is',
             '$1',
             $content
@@ -121,7 +121,7 @@ class HtmlProcessor
         $content = $this->keepOnlyFirstImgInFigure($content);
 
         // Move <a href="..."><h2>Text</h2></a> to <h2><a href="...">Text</a></h2>
-        $content = preg_replace_callback(
+        $content = $this->safePregReplaceCallback(
             '/<a\s+([^>]+)>\s*<(h[1-6])([^>]*)>(.*?)<\/\2>\s*<\/a>/is',
             function($matches) {
                 // $matches[2] = h2, $matches[3] = heading attributes, $matches[1] = a attributes, $matches[4] = text
@@ -132,7 +132,7 @@ class HtmlProcessor
         
         // Move <a ...><div>...</div><h2>Title</h2></a> to <div>...</div><h2><a ...>Title</a></h2>
         // But only if the heading doesn't already contain a link
-        $content = preg_replace_callback(
+        $content = $this->safePregReplaceCallback(
             '/<a\s+([^>]+)>(.*?)<(h[1-6])([^>]*)>(.*?)<\/\3>(.*?)<\/a>/is',
             function($matches) {
                 // Check if the heading content already contains a link
@@ -177,7 +177,7 @@ class HtmlProcessor
      */
     private function keepOnlyFirstImgInFigure(string $content): string
     {
-        return preg_replace_callback(
+        return $this->safePregReplaceCallback(
             '/<figure\b[^>]*>(.*?)<\/figure>/is',
             function ($matches) {
                 $figureContent = $matches[1];
@@ -187,7 +187,7 @@ class HtmlProcessor
                         // Keep only the first <img>
                         $firstImg = $imgMatches[0][0];
                         // Remove all <img ...> tags
-                        $figureContent = preg_replace('/<img\b[^>]*>/is', '', $figureContent);
+                        $figureContent = $this->safePregReplace('/<img\b[^>]*>/is', '', $figureContent);
                         // Prepend the first <img> at the start
                         $figureContent = $firstImg . $figureContent;
                     }
@@ -196,6 +196,36 @@ class HtmlProcessor
             },
             $content
         );
+    }
+
+    /**
+     * Safely applies preg_replace and falls back to the original subject on failure.
+     *
+     * @param string|array $pattern The pattern or patterns to search for
+     * @param string|array $replacement The replacement value
+     * @param string $subject The subject to search within
+     * @return string
+     */
+    private function safePregReplace($pattern, $replacement, string $subject): string
+    {
+        $result = preg_replace($pattern, $replacement, $subject);
+
+        return is_string($result) ? $result : $subject;
+    }
+
+    /**
+     * Safely applies preg_replace_callback and falls back to the original subject on failure.
+     *
+     * @param string $pattern The pattern to search for
+     * @param callable $callback The replacement callback
+     * @param string $subject The subject to search within
+     * @return string
+     */
+    private function safePregReplaceCallback(string $pattern, callable $callback, string $subject): string
+    {
+        $result = preg_replace_callback($pattern, $callback, $subject);
+
+        return is_string($result) ? $result : $subject;
     }
 
     /**
@@ -250,4 +280,4 @@ class HtmlProcessor
         $result = $dom->saveHTML();
         return str_replace('<?xml encoding="utf-8" ?>', '', $result);
     }
-} 
+}
