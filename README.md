@@ -217,6 +217,10 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.2.0
+- MCP support via Wordpress Abilities API
+- Fix admin menu SVG icon for WordPress 7
+
 ### 1.1.4
 - Added configurable meta data and optional author metadata: Allow per-field toggles for standard YAML keys and an optional nested author block (username, display name, email, roles). Add field_group support in settings UI; merge defaults for REST; keep schema in sync with setConfig.
 
