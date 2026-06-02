@@ -204,6 +204,8 @@ class HtmlProcessor
      * @param string|array $pattern The pattern or patterns to search for
      * @param string|array $replacement The replacement value
      * @param string $subject The subject to search within
+     * 
+     * @since 1.2.1
      * @return string
      */
     private function safePregReplace($pattern, $replacement, string $subject): string
@@ -219,6 +221,8 @@ class HtmlProcessor
      * @param string $pattern The pattern to search for
      * @param callable $callback The replacement callback
      * @param string $subject The subject to search within
+     * 
+     * @since 1.2.1
      * @return string
      */
     private function safePregReplaceCallback(string $pattern, callable $callback, string $subject): string

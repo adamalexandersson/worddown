@@ -217,6 +217,9 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.2.1
+- Fix export crash when HTML preprocessing fails on malformed or invalid content
+
 ### 1.2.0
 - MCP support via Wordpress Abilities API
 - Fix admin menu SVG icon for WordPress 7
