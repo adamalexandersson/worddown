@@ -3,7 +3,7 @@
  * Plugin Name: Worddown
  * Plugin URI: 
  * Description: WordPress plugin that exports pages or posts to a markdown files for AI chatbots
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Adam Alexandersson
  * Author URI: 
  * License: GPL v3 or later
@@ -44,4 +44,4 @@ add_action('init', function() {
 });
 
 // Boot the plugin
-App::boot(); 
+App::boot();

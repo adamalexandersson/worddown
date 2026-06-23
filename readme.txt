@@ -3,7 +3,7 @@ Contributors: adamalexandersson
 Tags: markdown, export, ai, chatbot, content
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Requires PHP: 8.1
 License: GPL v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -59,6 +59,21 @@ Customize your markdown output using WordPress filters:
     return $content;
 }, 10, 3);`
 
+= Custom Metadata Filter =
+
+Add or override YAML front matter keys after Worddown assembles core metadata (respecting your Metadata to include settings):
+
+`add_filter('worddown_custom_metadata', function($meta, $post_id, $context) {
+    $meta['reading_time'] = get_post_meta($post_id, 'reading_time', true);
+    return $meta;
+}, 10, 3);`
+
+Parameters:
+
+* `$meta` — Front matter array after admin toggles (add keys or overwrite existing ones)
+* `$post_id` — Post ID being exported
+* `$context` — `Worddown\Export\PostContext` with preloaded post data (read-only)
+
 = Available Translations =
 
 * English
@@ -97,6 +112,9 @@ New or changed strings appear in language packs after translators update them on
 If you use **Loco Translate** or placed a **custom** `worddown-*.mo` in `wp-content/languages/plugins/`, that file overrides the pack until you **re-sync** in Loco or **delete** the override so WordPress can download the current pack again.
 
 == Changelog ==
+
+= 1.2.2
+* Extract export metadata into MetaBuilder with PostContext and add worddown_custom_metadata filter for extending YAML front matter
 
 = 1.2.1
 * Fix export crash when HTML preprocessing fails on malformed or invalid content

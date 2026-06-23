@@ -9,6 +9,7 @@ use Worddown\Admin\Dashboard;
 use Worddown\Admin\Settings;
 use Worddown\Assets\Assets;
 use Worddown\Export\Export;
+use Worddown\Export\MetaBuilder;
 use Worddown\Export\Api;
 use Worddown\Export\Cli;
 use Worddown\Export\FileRepository;
@@ -44,6 +45,7 @@ class App
         Container::register(Dashboard::class, new Dashboard());
         Container::register(Settings::class, new Settings());
         Container::register(Assets::class, new Assets());
+        Container::register(MetaBuilder::class, new MetaBuilder(di(Settings::class)));
         Container::register(Export::class, new Export());
         Container::register(FileRepository::class, new FileRepository());
         Container::register(Api::class, new Api());
