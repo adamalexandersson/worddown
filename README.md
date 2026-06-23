@@ -233,6 +233,9 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.2.2
+- Extract export metadata into MetaBuilder with PostContext and added worddown_custom_metadata filter for extending YAML front matter
+
 ### 1.2.1
 - Fix export crash when HTML preprocessing fails on malformed or invalid content
 
