@@ -59,6 +59,21 @@ Customize your markdown output using WordPress filters:
     return $content;
 }, 10, 3);`
 
+= Custom Metadata Filter =
+
+Add or override YAML front matter keys after Worddown assembles core metadata (respecting your Metadata to include settings):
+
+`add_filter('worddown_custom_metadata', function($meta, $post_id, $context) {
+    $meta['reading_time'] = get_post_meta($post_id, 'reading_time', true);
+    return $meta;
+}, 10, 3);`
+
+Parameters:
+
+* `$meta` — Front matter array after admin toggles (add keys or overwrite existing ones)
+* `$post_id` — Post ID being exported
+* `$context` — `Worddown\Export\PostContext` with preloaded post data (read-only)
+
 = Available Translations =
 
 * English

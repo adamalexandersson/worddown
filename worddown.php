@@ -44,4 +44,4 @@ add_action('init', function() {
 });
 
 // Boot the plugin
-App::boot(); 
+App::boot();

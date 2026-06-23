@@ -22,6 +22,8 @@ if (!defined('ABSPATH')) {
  * Lifecycle hooks (for adapters/plugins to run code around export):
  * - worddown_before_export  Fired once before processing posts (each chunk in background)
  * - worddown_after_export   Fired once after processing posts (each chunk in background)
+ * - worddown_custom_html_content  Filter HTML before markdown conversion
+ * - worddown_custom_metadata      Filter YAML front matter after core fields are assembled
  * 
  * @package Worddown
  * @since 1.0.0
@@ -46,14 +48,16 @@ class Export
     /** @var ExportDirectory */
     private ExportDirectory $exportDirectory;
 
+    /** @var MetaBuilder */
+    private MetaBuilder $metaBuilder;
+
     /**
      * Constructor.
-     * 
-     * @param Settings $settings The settings instance
      */
     public function __construct()
     {
         $this->settings = di(Settings::class);
+        $this->metaBuilder = di(MetaBuilder::class);
 
         // Initialize the adapters manager
         $this->adaptersManager = new Adapters();
@@ -457,106 +461,28 @@ class Export
      */
     public function generateMarkdownFile(int $post_id): string
     {
-        $post = get_post($post_id);
-        if (!$post) {
+        $context = PostContext::fromPost($post_id);
+        if (!$context) {
             return '';
         }
 
-        $title = get_the_title($post_id);
-        $content = apply_filters('the_content', $post->post_content);
-        $permalink = get_permalink($post_id);
-        $post_type = get_post_type($post_id);
-        $date = get_the_date('Y-m-d H:i:s', $post_id);
-        $modified = get_the_modified_date('Y-m-d H:i:s', $post_id);
-        $slug = $post->post_name ?: sanitize_title($title);
-        $excerpt = get_the_excerpt($post_id);
-        
+        $content = apply_filters('the_content', $context->post->post_content);
+
         // Filter for third party plugins to inject custom HTML content
-        $content = apply_filters('worddown_custom_html_content', $content, $post_id, $post_type);
-        
-        // Get categories
-        $categories = get_the_category($post_id);
-        $category_names = [];
-        foreach ($categories as $category) {
-            $category_names[] = $category->name;
-        }
-        
+        $content = apply_filters('worddown_custom_html_content', $content, $post_id, $context->post_type);
+
         // Inject adapter content (Modularity, etc.)
         $content = $this->adaptersManager->injectAll($content, $post_id);
-        
+
         // Clean and prepare HTML for markdown conversion
         $content = $this->htmlProcessor->cleanHtmlForMarkdown($content);
-        
+
         // Convert HTML to Markdown
         $markdown_content = $this->markdownConverter->htmlToMarkdown($content);
-        
-        $metaData = [];
-        $settings = $this->settings;
 
-        if (!empty($settings::get('export_meta_date', true))) {
-            $metaData['date'] = $date;
-        }
-        if (!empty($settings::get('export_meta_modified', true))) {
-            $metaData['modified'] = $modified;
-        }
-        if (!empty($settings::get('export_meta_slug', true))) {
-            $metaData['slug'] = $slug;
-        }
-        if (!empty($settings::get('export_meta_id', true))) {
-            $metaData['id'] = $post_id;
-        }
-        if (!empty($settings::get('export_meta_type', true))) {
-            $metaData['type'] = $post_type;
-        }
-        if (!empty($settings::get('export_meta_excerpt', true))) {
-            $metaData['excerpt'] = $excerpt;
-        }
-        if (!empty($settings::get('export_meta_permalink', true))) {
-            $metaData['permalink'] = $permalink;
-        }
-        if (!empty($category_names) && !empty($settings::get('export_meta_category', true))) {
-            $metaData['category'] = $category_names;
-        }
+        $metaData = $this->metaBuilder->build($context);
 
-        $author = $this->buildAuthorMetaData((int) $post->post_author);
-        if (!empty($author)) {
-            $metaData['author'] = $author;
-        }
-
-        return $this->formatMarkdownFile($title, $metaData, $markdown_content);
-    }
-
-    /**
-     * Builds the author block for YAML front matter when any author field is enabled.
-     *
-     * @param int $author_id Post author user ID
-     * @since 1.1.4
-     * @return array<string, mixed>
-     */
-    private function buildAuthorMetaData(int $author_id): array
-    {
-        $user = get_userdata($author_id);
-        if (!$user) {
-            return [];
-        }
-
-        $s = $this->settings;
-        $author = [];
-
-        if (!empty($s::get('export_meta_author_username', false))) {
-            $author['username'] = $user->user_login;
-        }
-        if (!empty($s::get('export_meta_author_name', false))) {
-            $author['name'] = $user->display_name;
-        }
-        if (!empty($s::get('export_meta_author_email', false))) {
-            $author['email'] = $user->user_email;
-        }
-        if (!empty($s::get('export_meta_author_roles', false))) {
-            $author['roles'] = array_values($user->roles);
-        }
-
-        return $author;
+        return $this->formatMarkdownFile($context->title, $metaData, $markdown_content);
     }
 
     /**

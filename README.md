@@ -128,6 +128,22 @@ add_filter('worddown_custom_html_content', function($content, $post_id, $post_ty
 - If your site uses a custom page builder and does not store main content in the standard WordPress content field.
 - If you want to add extra HTML to the Markdown export for certain posts or post types.
 
+## Custom Metadata Filter for Markdown Export
+
+Use the `worddown_custom_metadata` filter to add or override YAML front matter keys after Worddown assembles core metadata (respecting your **Metadata to include** settings):
+
+```php
+add_filter('worddown_custom_metadata', function($meta, $post_id, $context) {
+    $meta['reading_time'] = get_post_meta($post_id, 'reading_time', true);
+    return $meta;
+}, 10, 3);
+```
+
+### Parameters
+- `$meta` — Front matter array after admin toggles (add keys or overwrite existing ones)
+- `$post_id` — Post ID being exported
+- `$context` — `Worddown\Export\PostContext` with preloaded post data (read-only)
+
 ## WP-CLI Command: Export
 
 You can export posts and pages to Markdown files directly from the command line using WP-CLI.
