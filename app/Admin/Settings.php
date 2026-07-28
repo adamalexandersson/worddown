@@ -395,9 +395,13 @@ class Settings
                         $label = preg_replace('/([a-z])([A-Z])/', '$1 $2', basename($file, '.php'));
                     }
 
-                    /* translators: %s is the adapter label */
-                    $description = sprintf(__('Include %s content in export', 'worddown'), $label);
-                    
+                    if (method_exists($class, 'description')) {
+                        $description = $class::description();
+                    } else {
+                        /* translators: %s is the adapter label */
+                        $description = sprintf(__('Include %s content in export', 'worddown'), $label);
+                    }
+
                     $adapters[] = [
                         'slug' => $slug,
                         'label' => $label,

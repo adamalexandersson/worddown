@@ -17,12 +17,19 @@ Worddown is a powerful WordPress plugin that enables you to export your pages an
 = Key Features =
 
 * Export pages and posts to markdown files
-* Support for custom page builders (ACF Flexible Content, Elementor, etc.)
+* Support for custom page builders (ACF Flexible Content, Elementor, Divi classic shortcodes, etc.)
 * REST API endpoints for programmatic access
 * WP-CLI commands for automation
 * Multilingual support
 * Background export mode for large sites
 * Customizable HTML content filters
+
+= Adapters =
+
+When a supported page builder is installed, enable it under Settings → Adapters:
+
+* **Divi** — Classic Builder shortcode layouts (`[et_pb_*]`, Divi 4 / unmigrated pages). Boots Divi modules during export so shortcodes render to HTML before Markdown conversion. Native Divi 5 block layouts (`<!-- wp:divi/... -->`) use the standard WordPress content pipeline and do not need this adapter.
+* **Modularity** — Injects Modularity modules around main content when available.
 
 = Export Methods =
 

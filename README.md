@@ -83,6 +83,13 @@ wp i18n make-pot . resources/languages/worddown.pot --include=config,app,resourc
 
 - Swedish (sv_SE)
 
+## Adapters (page builders)
+
+When a supported builder is detected, enable it under **Settings → Adapters**:
+
+- **Divi** — Classic Builder shortcode layouts (`[et_pb_*]`, Divi 4 / unmigrated pages). The adapter boots Divi’s modules during export so shortcodes render to HTML before Markdown conversion, and cleans Divi shortcode noise from auto-generated excerpts. Native Divi 5 block layouts (`<!-- wp:divi/... -->`) continue through the standard `the_content` / `do_blocks` pipeline and are not handled by this adapter.
+- **Modularity** — Injects Modularity modules around main content when available.
+
 ## Custom HTML Content Filters for Markdown Export
 
 If you use a custom page builder (like ACF Flexible Content, Elementor, etc.) or want to inject custom HTML for a post before it is converted to Markdown, you can use the following filters:
@@ -120,6 +127,7 @@ add_filter('worddown_custom_html_content', function($content, $post_id, $post_ty
 ```
 
 ### How It Works
+- Runs after page-builder adapters (Modularity, Divi, etc.), so you can still append or override HTML on adapter-handled posts.
 - The filter receives the current HTML content, the post ID, and the post type.
 - You can return your own HTML (to override) or append/prepend to the existing content.
 - The returned HTML will be cleaned and converted to Markdown as usual, and will appear in the exported file.

@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
  * Lifecycle hooks (for adapters/plugins to run code around export):
  * - worddown_before_export  Fired once before processing posts (each chunk in background)
  * - worddown_after_export   Fired once after processing posts (each chunk in background)
- * - worddown_custom_html_content  Filter HTML before markdown conversion
+ * - worddown_custom_html_content  Filter HTML after adapters, before markdown conversion
  * - worddown_custom_metadata      Filter YAML front matter after core fields are assembled
  * 
  * @package Worddown
@@ -468,11 +468,11 @@ class Export
 
         $content = apply_filters('the_content', $context->post->post_content);
 
-        // Filter for third party plugins to inject custom HTML content
-        $content = apply_filters('worddown_custom_html_content', $content, $post_id, $context->post_type);
-
-        // Inject adapter content (Modularity, etc.)
+        // Inject adapter content (Modularity, Divi, etc.)
         $content = $this->adaptersManager->injectAll($content, $post_id);
+
+        // Filter for third party plugins to inject custom HTML after adapters
+        $content = apply_filters('worddown_custom_html_content', $content, $post_id, $context->post_type);
 
         // Clean and prepare HTML for markdown conversion
         $content = $this->htmlProcessor->cleanHtmlForMarkdown($content);

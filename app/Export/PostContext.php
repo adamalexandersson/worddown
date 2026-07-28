@@ -63,7 +63,7 @@ final class PostContext
             is_string($date) ? $date : '',
             is_string($modified) ? $modified : '',
             $slug,
-            $excerpt,
+            is_string($excerpt) ? $excerpt : '',
             $category_names,
             (int) $post->post_author,
         );

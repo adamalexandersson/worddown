@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Worddown 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/worddown\n"
-"POT-Creation-Date: 2026-05-19T11:08:58+00:00\n"
-"PO-Revision-Date: 2026-05-19 13:11+0200\n"
+"POT-Creation-Date: 2026-07-28T14:33:36+00:00\n"
+"PO-Revision-Date: 2026-07-28 16:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: worddown\n"
 
 #. Plugin Name of the plugin
-#: worddown.php app/Application/App.php:74 app/Application/App.php:75
+#: worddown.php app/Application/App.php:76 app/Application/App.php:77
 msgid "Worddown"
 msgstr "Worddown"
 
@@ -34,6 +34,14 @@ msgstr ""
 msgid "Adam Alexandersson"
 msgstr "Adam Alexandersson"
 
+#: app/Adapters/Divi.php:211
+msgid ""
+"Include classic Divi Builder shortcode content in export (Divi 4). Divi 5 "
+"block layouts use the standard content pipeline."
+msgstr ""
+"Inkludera klassisk Divi Builder shortcode-innehåll i exporten (Divi 4). Divi "
+"5 block använder standardförfarandet."
+
 #: app/Admin/Dashboard.php:40 app/Admin/Dashboard.php:41
 #: app/Admin/Header.php:40
 msgid "Dashboard"
@@ -48,7 +56,7 @@ msgid "Weekly"
 msgstr "Veckovis"
 
 #. translators: %s is the adapter label
-#: app/Admin/Settings.php:399
+#: app/Admin/Settings.php:402
 #, php-format
 msgid "Include %s content in export"
 msgstr "Inkludera %s modulers innehåll i exporten"
@@ -74,26 +82,26 @@ msgid "No export to cancel"
 msgstr "Ingen export att avbryta"
 
 #. translators: %d is the total number of posts
-#: app/Export/Export.php:141
+#: app/Export/Export.php:145
 #, php-format
 msgid "Background export started for %d posts"
 msgstr "Bakgrundsexport har startat för %d inlägg"
 
-#: app/Export/Export.php:203
+#: app/Export/Export.php:207
 msgid "Starting export..."
 msgstr "Startar export..."
 
 #. translators: %1$d is the current chunk number, %2$d is the total number of chunks, %3$d is the number of posts in the current chunk
-#: app/Export/Export.php:240
+#: app/Export/Export.php:244
 #, php-format
 msgid "Processing chunk %1$d of %2$d (%3$d posts)"
 msgstr "Bearbetar segment %1$d av %2$d (%3$d inlägg)"
 
-#: app/Export/Export.php:297
+#: app/Export/Export.php:301
 msgid "Export completed successfully"
 msgstr "Exporten har slutförts"
 
-#: app/Export/Export.php:390
+#: app/Export/Export.php:394
 msgid "Export cancelled by user"
 msgstr "Exporten avbröts av användaren"
 

@@ -2,22 +2,22 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Worddown 1.1.4\n"
+"Project-Id-Version: Worddown 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/worddown\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-19T11:08:58+00:00\n"
+"POT-Creation-Date: 2026-07-28T14:33:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: worddown\n"
 
 #. Plugin Name of the plugin
 #: worddown.php
-#: app/Application/App.php:74
-#: app/Application/App.php:75
+#: app/Application/App.php:76
+#: app/Application/App.php:77
 msgid "Worddown"
 msgstr ""
 
@@ -29,6 +29,10 @@ msgstr ""
 #. Author of the plugin
 #: worddown.php
 msgid "Adam Alexandersson"
+msgstr ""
+
+#: app/Adapters/Divi.php:211
+msgid "Include classic Divi Builder shortcode content in export (Divi 4). Divi 5 block layouts use the standard content pipeline."
 msgstr ""
 
 #: app/Admin/Dashboard.php:40
@@ -49,7 +53,7 @@ msgid "Weekly"
 msgstr ""
 
 #. translators: %s is the adapter label
-#: app/Admin/Settings.php:399
+#: app/Admin/Settings.php:402
 #, php-format
 msgid "Include %s content in export"
 msgstr ""
@@ -75,26 +79,26 @@ msgid "No export to cancel"
 msgstr ""
 
 #. translators: %d is the total number of posts
-#: app/Export/Export.php:141
+#: app/Export/Export.php:145
 #, php-format
 msgid "Background export started for %d posts"
 msgstr ""
 
-#: app/Export/Export.php:203
+#: app/Export/Export.php:207
 msgid "Starting export..."
 msgstr ""
 
 #. translators: %1$d is the current chunk number, %2$d is the total number of chunks, %3$d is the number of posts in the current chunk
-#: app/Export/Export.php:240
+#: app/Export/Export.php:244
 #, php-format
 msgid "Processing chunk %1$d of %2$d (%3$d posts)"
 msgstr ""
 
-#: app/Export/Export.php:297
+#: app/Export/Export.php:301
 msgid "Export completed successfully"
 msgstr ""
 
-#: app/Export/Export.php:390
+#: app/Export/Export.php:394
 msgid "Export cancelled by user"
 msgstr ""
 
