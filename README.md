@@ -241,6 +241,10 @@ This plugin is licensed under the GPL v2 or later.
 
 ## Changelog
 
+### 1.2.3
+- Add Divi adapter for classic Builder shortcode layouts (`[et_pb_*]`); skips Divi 5 block content
+- Sanitize Divi shortcode artifacts from auto-generated YAML excerpts via the adapter
+
 ### 1.2.2
 - Extract export metadata into MetaBuilder with PostContext and added worddown_custom_metadata filter for extending YAML front matter
 
