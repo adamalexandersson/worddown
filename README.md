@@ -227,7 +227,7 @@ curl -X POST -H "X-API-Key: {api_key}" \
 ## Requirements
 
 - WordPress 5.0 or higher
-- PHP 7.2 or higher
+- PHP 8.1 or higher
 - Node.js 16.0 or higher (for development)
 - npm 8.0 or higher (for development)
 
