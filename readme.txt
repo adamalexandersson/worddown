@@ -3,7 +3,7 @@ Contributors: adamalexandersson
 Tags: markdown, export, ai, chatbot, content
 Requires at least: 5.0
 Tested up to: 7.1
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 Requires PHP: 8.1
 License: GPL v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -119,6 +119,10 @@ New or changed strings appear in language packs after translators update them on
 If you use **Loco Translate** or placed a **custom** `worddown-*.mo` in `wp-content/languages/plugins/`, that file overrides the pack until you **re-sync** in Loco or **delete** the override so WordPress can download the current pack again.
 
 == Changelog ==
+
+= 1.2.5 =
+* Keep admin styles working when another stylesheet declares CSS cascade layers first
+* Update npm and Composer dependencies
 
 = 1.2.4
 * Declaring support for upcoming Wordpress 7.1
