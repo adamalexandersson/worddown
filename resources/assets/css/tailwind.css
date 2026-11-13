@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss/theme.css" layer(worddown);
+@import "tailwindcss/utilities.css" layer(worddown);
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -110,11 +111,17 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+@layer worddown {
+  :where(.worddown, .worddown *, .worddown *::before, .worddown *::after) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+    border-color: var(--border);
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .worddown {
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
