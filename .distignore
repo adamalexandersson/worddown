@@ -17,7 +17,11 @@ node_modules/
 # Git & build relaterat
 .distignore
 .git
+.github
 .gitignore
+.cursor
+.claude
+/.wordpress-org
 releases
 package.json
 package-lock.json

@@ -35,19 +35,18 @@ The build process will:
 - Generate a manifest file for asset versioning
 - Output optimized files to the `dist` directory
 
-### Creating Distribution Package
+### Publishing to WordPress.org
 
-To prepare the plugin for distribution, first ensure you've built all assets using `npm run build`. Then use the WP-CLI command to create a distribution package:
+A release is a git tag with the same name as `Stable tag` in `readme.txt`, without a `v` prefix (`1.2.5`, not `v1.2.5`). Pushing that tag runs `.github/workflows/release.yml`, which builds `dist/`, installs production Composer dependencies, and deploys to WordPress.org. Pushing `master` alone does not publish.
+
+Before the first tag, add the GitHub Actions secrets `SVN_USERNAME` and `SVN_PASSWORD` on `adamalexandersson/worddown`. Directory images live in `.wordpress-org/` and are copied to the SVN `assets/` directory. `.distignore` controls what enters the plugin zip.
+
+To build a local zip without publishing:
 
 ```bash
+npm run build
 wp dist-archive . ./releases/worddown.zip --create-target-dir --format=zip
 ```
-
-This will:
-- Create a `releases` directory if it doesn't exist
-- Package all plugin files into a ZIP archive
-- Exclude development files and directories (like `node_modules`, `.git`, etc.)
-- Create a clean distribution-ready plugin ZIP file
 
 ### Build Output Structure
 
